@@ -7,7 +7,7 @@
 }
 body{
     font-size: 16px;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
     background-color: aliceblue;
     transition: all 0.7s ease-in-out;
 }
@@ -66,6 +66,36 @@ body{
     align-items: center;
     justify-content: space-between;
     padding: 0 20%;
+    height: 50px;
+}
+.menu-right{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.user-profile{
+    position: relative;
+
+}
+.user-profile a .fa-user-secret{
+    font-size: 20px;
+}
+.drop-profile{
+    display: none;
+    position: absolute;
+    min-width: 200px;
+    background-color: aliceblue;
+    box-shadow: 0 10px 5px 0 rgba(0, 0, 0, 0.4);
+    right: 0;
+    z-index: 10;
+    margin-top: 14px;
+}
+#dropdown-menu.active {
+    display: block;
+  }
+.drop-profile a{
+    display: block;
+    padding: 5px 10px;
 }
 .menu-main .menu{
     display: flex;
@@ -79,4 +109,208 @@ body{
 }
 .menu-main .menu li a:hover{
     color: blue;
+}
+.menu-main .cart{
+    padding: 5px 10px;
+    position: relative;
+    background-color: #fff;
+    border: 2px solid blue;
+    border-radius: 10px;
+    transition: all 0.9s ease;
+
+}
+.cart .soluong{
+    width: 30px;
+    height: 10px;
+    color: #fff;
+    background-color: red;
+    border-radius: 50%;
+    z-index: 2;
+    top: -10px;
+}
+
+.menu-cart{
+    width: 400px;
+    position: absolute;
+    right: 0;
+    box-shadow: 0 10px 5px 0 rgba(0, 0, 0, 0.4);
+    background-color: aliceblue;
+    display: none;
+    margin-top: 8px;
+    transition: all 0.9s ease;
+    z-index: 11;
+
+
+}
+.menu-cart a{
+    display: block;
+    padding: 10px;
+    color: black;
+}
+
+.cart:hover .menu-cart{
+    transition: all 0.9s ease;
+    display: block;
+}
+.cart-info{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+.cart-info img{
+    width: 60px;
+    height: 60px;
+
+}
+.cart-info .fa-trash-can{
+    color: #5e74f3;
+
+}
+.cart-info .fa-trash-can:hover{
+    color: blue;
+}
+section{
+    padding: 10px 10%;
+}
+.content-slider{
+    width: 100%;
+    display: flex;
+    gap: 25px;
+}
+.slider-product{
+    
+    width: 70%; /* Độ rộng của slider */
+    left: 0;
+    
+}
+.slider-product img{
+    width: 100%;
+    height: auto;
+}
+.noi-bat{
+    width: 30%;
+    right: 0;
+    border: 2px solid blue;
+    padding: 10px;
+}
+.noi-bat h2{
+    font-size: 16px;
+    font-weight: 500;
+}
+.noi-bat hr{
+    color: blue;
+    background-color: blue;
+    opacity: 0.4;
+    margin-top: 5px;
+}
+.slidebar-product{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+.slidebar-product img{
+    width: 50px;
+    height: 50px;
+}
+.container-product{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.product{
+    flex: 0 1 calc(20% - 20px);
+    background-color:aliceblue;
+    border: 2px solid blue;
+    margin: 10px;
+    padding: 10px;
+}
+.product img{
+    width: 100%;
+}
+.ton-kho{
+    font-size: 14px;
+    color: rgb(42, 151, 115);
+}
+.price{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0;
+}
+.title-product h2{
+    margin: 10px 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+.btn-cart-product{
+    width: 100%;
+    display: flex;
+    gap: 5px;
+}
+.btn-cart{
+    padding: 5px 10px;
+    width: 30%;
+    cursor: pointer;
+    border: 2px solid blue;
+    background-color: #5e74f3;
+    transition: all 0.5s ease;
+    color: #fff;
+
+}
+.btn-cart:hover{
+    background-color: blue;
+
+}
+.btn-product{
+    width: 70%;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 2px solid blue;
+    background-color: #fff;
+    transition: all 0.5s ease;
+
+
+}
+
+.btn-product:hover{
+    background-color: blue;
+    color: #fff;
+    transition: all 0.7s ease;
+}
+@media(max-width:990px){
+    .content-slider{
+        flex-direction: column;
+    }
+    .slider-product{
+        width: 100%;
+    }
+    .noi-bat{
+        width: 100%;
+    }
+    section{
+        padding: 20px 10px;
+    }
+    .product{
+        flex: 0 1 calc(25% - 20px);
+    }
+}
+@media(max-width:768px){
+    
+    .product{
+        flex: 0 1 calc(33.33% - 20px);
+    }
+}
+@media(max-width:470px){
+    
+    .product{
+        flex: 0 1 calc(50% - 20px);
+    }
+}
+@media(max-width:330px){
+    
+    .product{
+        flex: 0 1 calc(100% - 20px);
+    }
 }

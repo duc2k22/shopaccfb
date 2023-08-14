@@ -4,6 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
     <link rel="stylesheet" href="asset/css/style.css">
     <title>Shop acc Facebook</title>
 </head>
@@ -40,9 +54,191 @@
                     <li><a href="#">VIA 902</a></li>
                     <li><a href="#">CLONE</a></li>
                 </ul>
+                <div class="menu-right">
+                    <div class="user-profile">
+                        <a href="#" id="profile-icon"><i class="fa-solid fa-user-secret"></i></a>
+                        <div class="drop-profile" id="dropdown-menu">
+                            <a href="#">Menu 1</a>
+                            <a href="#">Menu 2</a>
+                            <a href="#">Menu 3</a>
+                            <a href="#">Menu 4</a>
+                            <a href="#">Menu 5</a>
+                        </div>
+                    </div>
+
+                    <div class="cart">
+                        <a href="#"><i class="fa-solid fa-cart-plus"></i> Giỏ hàng</a>
+                        <span class="soluong">0</span>
+                        <div class="menu-cart">
+                            <div class="cart-info">
+                                <img src="asset/img/Hotmail-Trust-song-6-12-thang-300x300.png" alt="">
+                                <a href="#">Hotmail Trust sống 6-12 tháng chuyên dùng Verify</a>
+                                <a href="#"><i class="fa-solid fa-trash-can"></i></a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
+    <section>
+        <div class="content-slider">
+            <div class="slider-product">
+                <div><img src="asset/img/vuavia-summer-2023.png" alt="Slide 1"></div>
+                <div><img src="asset/img/image-sales.jpg" alt="Slide 1"></div>
+                <div><img src="asset/img/image-sales.jpg" alt="Slide 1"></div>
+
+            </div>
+            <div class="noi-bat">
+                <h2>Tin nổi bật</h2>
+                <hr>
+                <div class="slidebar-product">
+
+                    <img src="asset/img/Hotmail-Trust-song-6-12-thang-300x300.png" alt="">
+                    <h5 class="post-title">Bí quyết tăng trưởng Thị trường và tương tác quảng cáo trên tiktok</h5>
+
+                </div>
+            </div>
+        </div>
+        <div class="title-container-product">
+            <h2>Bán chạy nhất</h2>
+            <hr>
+        </div>
+        <div class="container-product">
+
+            <div class="product">
+                <div class="img-product">
+                    <img src="asset/img/Hotmail-Trust-song-6-12-thang-300x300.png" alt="">
+                </div>
+                <div class="title-product">
+                    <h2>Hotmail Trust sống 6-12 tháng chuyên dùng Verify</h2>
+                </div>
+                <span class="ton-kho">Còn lại: 1000 sản phẩm</span>
+                <div class="price">
+                    <span class="price">50000đ</span>
+                    <span class="price-sale">10000đ</span>
+                </div>
+                <div class="btn-cart-product">
+                    <button class="btn-cart"><i class="fa-solid fa-cart-plus"></i></button>
+                    <button class="btn-product">Mua ngay</button>
+                </div>
+
+            </div>
+            <div class="product">
+                <div class="img-product">
+                    <img src="asset/img/Hotmail-Trust-song-6-12-thang-300x300.png" alt="">
+                </div>
+                <div class="title-product">
+                    <h2>Hotmail Trust sống 6-12 tháng chuyên dùng Verify</h2>
+                </div>
+                <span class="ton-kho">Còn lại: 1000 sản phẩm</span>
+                <div class="price">
+                    <span class="price">50000đ</span>
+                    <span class="price-sale">10000đ</span>
+                </div>
+                <div class="btn-cart-product">
+                    <button class="btn-cart"><i class="fa-solid fa-cart-plus"></i></button>
+                    <button class="btn-product">Mua ngay</button>
+                </div>
+
+            </div>
+            <div class="product">
+                <div class="img-product">
+                    <img src="asset/img/Hotmail-Trust-song-6-12-thang-300x300.png" alt="">
+                </div>
+                <div class="title-product">
+                    <h2>Hotmail Trust sống 6-12 tháng chuyên dùng Verify</h2>
+                </div>
+                <span class="ton-kho">Còn lại: 1000 sản phẩm</span>
+                <div class="price">
+                    <span class="price">50000đ</span>
+                    <span class="price-sale">10000đ</span>
+                </div>
+                <div class="btn-cart-product">
+                    <button class="btn-cart"><i class="fa-solid fa-cart-plus"></i></button>
+                    <button class="btn-product">Mua ngay</button>
+                </div>
+
+            </div>
+            <div class="product">
+                <div class="img-product">
+                    <img src="asset/img/Hotmail-Trust-song-6-12-thang-300x300.png" alt="">
+                </div>
+                <div class="title-product">
+                    <h2>Hotmail Trust sống 6-12 tháng chuyên dùng Verify</h2>
+                </div>
+                <span class="ton-kho">Còn lại: 1000 sản phẩm</span>
+                <div class="price">
+                    <span class="price">50000đ</span>
+                    <span class="price-sale">10000đ</span>
+                </div>
+                <div class="btn-cart-product">
+                    <button class="btn-cart"><i class="fa-solid fa-cart-plus"></i></button>
+                    <button class="btn-product">Mua ngay</button>
+                </div>
+
+            </div>
+            <div class="product">
+                <div class="img-product">
+                    <img src="asset/img/Hotmail-Trust-song-6-12-thang-300x300.png" alt="">
+                </div>
+                <div class="title-product">
+                    <h2>Hotmail Trust sống 6-12 tháng chuyên dùng Verify</h2>
+                </div>
+                <span class="ton-kho">Còn lại: 1000 sản phẩm</span>
+                <div class="price">
+                    <span class="price">50000đ</span>
+                    <span class="price-sale">10000đ</span>
+                </div>
+                <div class="btn-cart-product">
+                    <button class="btn-cart"><i class="fa-solid fa-cart-plus"></i></button>
+                    <button class="btn-product">Mua ngay</button>
+                </div>
+
+            </div>
+            <div class="product">
+                <div class="img-product">
+                    <img src="asset/img/Hotmail-Trust-song-6-12-thang-300x300.png" alt="">
+                </div>
+                <div class="title-product">
+                    <h2>Hotmail Trust sống 6-12 tháng chuyên dùng Verify</h2>
+                </div>
+                <span class="ton-kho">Còn lại: 1000 sản phẩm</span>
+                <div class="price">
+                    <span class="price">50000đ</span>
+                    <span class="price-sale">10000đ</span>
+                </div>
+                <div class="btn-cart-product">
+                    <button class="btn-cart"><i class="fa-solid fa-cart-plus"></i></button>
+                    <button class="btn-product">Mua ngay</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
 </body>
+<script>
+    $(document).ready(function () {
+        $('.slider-product').slick({
+            autoplay: true, // Tự động chuyển động
+            autoplaySpeed: 3000, // Thời gian chờ giữa các slide (đơn vị là mili giây)
+        });
+    });
+
+    const btndrop = document.getElementById('profile-icon');
+    const dropmenu = document.getElementById('dropdown-menu');
+
+    btndrop.addEventListener('click', () => {
+        dropmenu.classList.toggle('active');
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!btndrop.contains(event.target) && !dropmenu.contains(event.target)) {
+            dropmenu.classList.remove('active');
+        }
+    });
+
+</script>
 
 </html>
