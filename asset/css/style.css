@@ -62,11 +62,16 @@ body{
     justify-content: right;
 }
 .menu-main{
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 10%;
     height: 70px;
+}
+#icon-menu{
+    display: none;
+    cursor: pointer;
 }
 .menu-right{
     display: flex;
@@ -91,6 +96,9 @@ body{
     margin-top: 14px;
 }
 #dropdown-menu.active {
+    display: block;
+  }
+  #drop-menu.active{
     display: block;
   }
 .drop-profile a{
@@ -156,6 +164,11 @@ body{
     padding: 10px;
     display: flex;
     align-items: center;
+    border-bottom: 1px solid darkcyan;
+
+}
+.cart-info:hover{
+    background-color: rgb(225, 239, 239);
 }
 .cart-info img{
     width: 60px;
@@ -168,6 +181,45 @@ body{
 }
 .cart-info .fa-trash-can:hover{
     color: blue;
+}
+.total-cart{
+    text-align: end;
+    padding: 10px;
+}
+.total-cart span{
+    opacity: 0.4;
+}
+.cart-info-thanhtoan{
+    padding: 10px;
+    display: block;
+    width: 100%;
+}
+.cart-thanhtoan button{
+    cursor: pointer;
+    width: 100%;
+    padding:  10px;
+    border: none;
+    background-color: #5e74f3;
+    color: #fff;
+    transition: all 0.5s ease;
+    border-radius: 5px;
+}
+.cart-thanhtoan button:hover{
+    background-color: blue;
+}
+.cart-xem button{
+    background-color: blue;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    color: #fff;
+    transition: all 0.5s ease;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.cart-xem button:hover{
+    background-color: #5e74f3;
 }
 section{
     padding: 10px 10%;
@@ -399,6 +451,30 @@ border-radius: 5px;
 
 }
 @media(max-width:990px){
+    .menu-main{
+        padding: 10px;
+    }
+    #icon-menu{
+        display: block;
+    }
+    .menu-main .menu{
+    position: absolute;
+
+        width: 100%;
+        z-index: 5;
+        top: 70px;
+        left: 0;
+        background-color: aliceblue;
+    }
+    .menu-main ul li a{
+        display: block;
+        padding: 10px;
+    }
+    .menu-left .menu{
+        display: none;
+    }
+    
+
     .content-slider{
         flex-direction: column;
     }
@@ -434,6 +510,15 @@ border-radius: 5px;
     }
     .product-viavn{
         flex: 0 1 calc(50% - 20px);
+    }
+    .gio-hang{
+        display: none;
+    }
+    .menu-main .cart{
+        position: unset;
+    }
+    .menu-cart{
+        width: 100%;
     }
 }
 @media(max-width:330px){

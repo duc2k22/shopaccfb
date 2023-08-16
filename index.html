@@ -46,11 +46,12 @@
                 </div>
             </div> -->
             <div class="menu-main">
+                <i class="fa-solid fa-bars" id="icon-menu"></i>
                 <div class="menu-left">
                     <div class="logo">
                         <a href="#"><img src="asset/img/logo.svg" alt=""></a>
                     </div>
-                    <ul class="menu">
+                    <ul class="menu" id="drop-menu">
                         <li><a href="#">HOME</a></li>
                         <li><a href="#">VIA VIỆT</a></li>
                         <li><a href="#">VIA NGOẠI</a></li>
@@ -76,13 +77,31 @@
                     </div>
 
                     <div class="cart">
-                        <a href="#"><i class="fa-solid fa-cart-plus"></i> Giỏ hàng</a>
+                        <a href="#"><i class="fa-solid fa-cart-plus"></i> <span class="gio-hang">Giỏ hàng</span></a>
                         <span class="soluong">0</span>
                         <div class="menu-cart">
                             <div class="cart-info">
                                 <img src="asset/img/Hotmail-Trust-song-6-12-thang-300x300.png" alt="">
                                 <a href="#">Hotmail Trust sống 6-12 tháng chuyên dùng Verify</a>
                                 <a href="#"><i class="fa-solid fa-trash-can"></i></a>
+                            </div>
+                            <div class="cart-info">
+                                <img src="asset/img/Hotmail-Trust-song-6-12-thang-300x300.png" alt="">
+                                <a href="#">Hotmail Trust sống 6-12 tháng chuyên dùng Verify</a>
+                                <a href="#"><i class="fa-solid fa-trash-can"></i></a>
+                            </div>
+
+                            <div class="total-cart">
+                                <h5>Tổng tiền: <span>100.000đ</span></h5>
+                            </div>
+                            <div class="cart-info-thanhtoan">
+                                <div class="cart-thanhtoan">
+                                    <button>Thanh toán</button>
+                                </div>
+                                <div class="cart-xem">
+                                    <button>Xem ngay</button>
+                                </div>
+
                             </div>
 
                         </div>
@@ -363,12 +382,12 @@
                 <div class="img-viavn">
                     <a href="#">
                         <img src="asset/img/Hotmail-Trust-song-6-12-thang-300x300.png" alt="">
-                        
+
                     </a>
                     <div class="giamgia-viavn">
                         <p>Hết hàng!</p>
                     </div>
-                    
+
                 </div>
                 <div class="title-viavn">
                     <h2>Via Việt Nam 50 đến 1000 bạn bè Unlock Checkpoint Mail</h2>
@@ -409,6 +428,13 @@
         if (!btndrop.contains(event.target) && !dropmenu.contains(event.target)) {
             dropmenu.classList.remove('active');
         }
+    });
+
+    const iconmenu = document.getElementById('icon-menu');
+    const dropmenumain = document.getElementById('drop-menu');
+
+    iconmenu.addEventListener('click', () => {
+        dropmenumain.classList.toggle('active');
     });
 
 </script>
