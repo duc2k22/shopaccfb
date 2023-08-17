@@ -11,6 +11,7 @@ body{
     background-color: aliceblue;
     transition: all 0.7s ease-in-out;
 }
+/* Css index users */
 .container-menu{
     background-image: linear-gradient(90deg, aliceblue, rgb(136, 194, 245));
     position: relative;
@@ -239,6 +240,33 @@ section{
     width: 100%;
     height: auto;
 }
+  /* Custom styles for Slick carousel arrows */
+  .slider-product .slick-prev,
+  .slider-product .slick-next {
+      font-size: 0; /* Hide default text content */
+      line-height: 0;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+  }
+  
+  .slider-product .slick-prev {
+      left: 20px;
+  }
+
+  .slider-product .slick-next {
+      right: 20px;
+  }
+  
+  .slider-product .slick-prev::before,
+  .slider-product .slick-next::before {
+      content: ""; /* Add your custom arrow icons here */
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background: url('path-to-your-arrow-icon.png') no-repeat center center;
+  }
 .noi-bat{
     width: 30%;
     right: 0;
@@ -450,6 +478,115 @@ border-radius: 5px;
     color: #fff;
 
 }
+/* End css index users */
+
+.product-chitiet{
+    width: 100%;
+    display: flex;
+    padding: 40px 0;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.img-product-chitet{
+    width: 30%;
+}
+.img-product-chitet img{
+    width: 100%;
+}
+.info-product-chitiet{
+    width: 44%;
+    display: block;
+    gap: 10px;
+}
+.title-chitiet h3{
+    font-size: 20px;
+    margin: 10px 0;
+}
+.total-product{
+    font-weight: bold;
+    font-size: 16px;
+    color: rgb(29, 156, 113);
+}
+.price-wrapper{
+    margin: 10px 0;
+}
+
+.price-product del{
+    opacity: 0.3;
+    margin-right: 10px;
+}
+.price-product ins span{
+    font-weight: 700;
+}
+.product-description ul{
+    padding-left: 10px;
+}
+.product-description ul li{
+    font-size: 18px;
+    margin: 10px 0;
+    color: black;
+    font-weight: 700;
+}
+.product-description ul li span{
+    font-weight: 400;
+}
+.product-sidebar{
+    width: 24%;
+}
+.row-product-sidebar{
+    border: 2px solid rgb(222, 222, 222);
+}
+.icon-product i{
+   font-size: 40px;
+   font-weight: 400;
+   width: 40px;
+   opacity: 0.3;
+}
+.box-product{
+    display: flex;
+    gap: 10px;
+    background-color: aliceblue;
+    border: 1px solid rgb(223, 222, 223);
+    padding: 5px;
+}
+.text-box-product{
+    font-size: 20px;
+}
+.text-box-product h6{
+    font-weight: 400;
+    margin-top: 7px;
+}
+.thanh-toan-money button{
+    padding: 10px 0;
+    cursor: pointer;
+    background-color: #5e74f3;
+    color: #fff;
+    border: none;
+    transition: all 0.5s ease;
+    width: 25%;
+    border-radius: 5px;
+}
+.thanh-toan-money button:hover{
+    background-color: blue;
+}
+.table-mota{
+    width: 100%;
+    background-color: antiquewhite;
+    padding: 40px 40px;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px -4px #03a39729, 0 3px 6px #03a39729;
+}
+.table-mota ul{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    
+}
+.table-mota ul li a{
+    font-weight: 500;
+    color: rgb(53, 53, 53);
+    opacity: 0.7;
+}
 @media(max-width:990px){
     .menu-main{
         padding: 10px;
@@ -493,6 +630,19 @@ border-radius: 5px;
     .product-viavn{
         flex: 0 1 calc(25% - 20px);
     }
+    .product-chitiet{
+        flex-direction: column;
+        
+    }
+    .img-product-chitet,
+    .info-product-chitiet,
+    .product-sidebar{
+        width: 100%;
+    }
+    .thanh-toan-money button{
+    width: 50%;
+
+    }
 }
 @media(max-width:768px){
     
@@ -502,6 +652,10 @@ border-radius: 5px;
     .product-viavn{
         flex: 0 1 calc(33.33% - 20px);
     }
+    .thanh-toan-money button{
+        width: 50%;
+    
+        }
 }
 @media(max-width:470px){
     
@@ -520,6 +674,14 @@ border-radius: 5px;
     .menu-cart{
         width: 100%;
     }
+    .thanh-toan-money button{
+        width: 50%;
+    
+        }
+        .table-mota ul{
+            flex-direction: column;
+            align-items:flex-start;
+        }
 }
 @media(max-width:330px){
     
@@ -529,4 +691,8 @@ border-radius: 5px;
     .product-viavn{
         flex: 0 1 calc(100% - 20px);
     }
+    .thanh-toan-money button{
+        width: 100%;
+    
+        }
 }

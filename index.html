@@ -410,12 +410,15 @@
     </section>
 </body>
 <script>
-    $(document).ready(function () {
-        $('.slider-product').slick({
-            autoplay: true, // Tự động chuyển động
-            autoplaySpeed: 3000, // Thời gian chờ giữa các slide (đơn vị là mili giây)
+     $(document).ready(function(){
+            $('.slider-product').slick({
+                autoplay: true,
+                autoplaySpeed: 2000,
+                dots: true,
+                prevArrow: false, // Hide default "Previous" arrow
+                nextArrow: false  // Hide default "Next" arrow
+            });
         });
-    });
 
     const btndrop = document.getElementById('profile-icon');
     const dropmenu = document.getElementById('dropdown-menu');
