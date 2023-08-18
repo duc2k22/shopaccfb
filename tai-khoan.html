@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+    <link rel="stylesheet" href="asset/css/style.css">
+    <title>Shop acc Facebook</title>
+</head>
+
+<body>
+    <header>
+        <div class="container-menu">
+            <!-- <div class="menu-top">
+                <div class="menu-left">
+                    <div class="logo">
+                        <a href="#"><img src="asset/img/logo.svg" alt=""></a>
+                    </div>
+                    <div class="search-menu">
+                        <input type="text" placeholder="Tìm kiếm...">
+                        <button>Tìm</button>
+                    </div>
+                </div>
+                <div class="user-login-money">
+                    <div class="login-user">
+                        <a href="#">Đăng nhập</a>
+                    </div>
+                    <div class="money">
+                        <a href="#"><span>Số dư: 0đ</span></a>
+
+                    </div>
+                </div>
+            </div> -->
+            <div class="menu-main">
+                <i class="fa-solid fa-bars" id="icon-menu"></i>
+                <div class="menu-left">
+                    <div class="logo">
+                        <a href="#"><img src="asset/img/logo.svg" alt=""></a>
+                    </div>
+                    <ul class="menu" id="drop-menu">
+                        <li><a href="#">HOME</a></li>
+                        <li><a href="#">VIA VIỆT</a></li>
+                        <li><a href="#">VIA NGOẠI</a></li>
+                        <li><a href="#">VIA XMDT</a></li>
+                        <li><a href="#">VIA 902</a></li>
+                        <li><a href="#">CLONE</a></li>
+                    </ul>
+                </div>
+                <div class="menu-right">
+                    <div class="money">
+                        <a href="#"><span>Số dư: 0đ</span></a>
+
+                    </div>
+                    <div class="user-profile">
+                        <a href="#" id="profile-icon"><i class="fa-solid fa-user-secret"></i></a>
+                        <div class="drop-profile" id="dropdown-menu">
+                            <a href="#">Menu 1</a>
+                            <a href="#">Menu 2</a>
+                            <a href="#">Menu 3</a>
+                            <a href="#">Menu 4</a>
+                            <a href="#">Menu 5</a>
+                        </div>
+                    </div>
+
+                    <div class="cart">
+                        <a href="#"><i class="fa-solid fa-cart-plus"></i> <span class="gio-hang">Giỏ hàng</span></a>
+                        <span class="soluong">0</span>
+                        <div class="menu-cart">
+                            <div class="cart-info">
+                                <img src="asset/img/Hotmail-Trust-song-6-12-thang-300x300.png" alt="">
+                                <a href="#">Hotmail Trust sống 6-12 tháng chuyên dùng Verify</a>
+                                <a href="#"><i class="fa-solid fa-trash-can"></i></a>
+                            </div>
+                            <div class="cart-info">
+                                <img src="asset/img/Hotmail-Trust-song-6-12-thang-300x300.png" alt="">
+                                <a href="#">Hotmail Trust sống 6-12 tháng chuyên dùng Verify</a>
+                                <a href="#"><i class="fa-solid fa-trash-can"></i></a>
+                            </div>
+
+                            <div class="total-cart">
+                                <h5>Tổng tiền: <span>100.000đ</span></h5>
+                            </div>
+                            <div class="cart-info-thanhtoan">
+                                <div class="cart-thanhtoan">
+                                    <button>Thanh toán</button>
+                                </div>
+                                <div class="cart-xem">
+                                    <button>Xem ngay</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section>
+
+        <div class="page-title-account">
+            <a href="#">
+                <h5>Home</h5>
+            </a>
+            <span class="mr_lr">&nbsp;/&nbsp;</span>
+            <a href="#">
+                <h5>Tài khoản</h5>
+            </a>
+        </div>
+        <div class="container-account">
+            <div class="my-account-menu">
+                <div class="user-profile">
+                    <div class="user-avatar upload-avatar">
+                        <img src="asset/img/user.png" alt="">
+                    </div>
+                    <div class="user-info">
+                        <span class="username">lancave</span>
+                        <span class="user-email">lan@gmail.com</span>
+                        <span class="logout">Số dư: <em>20.000đ</em></span>
+                    </div>
+                </div>
+                <div class="myaccount-menu">
+                    <ul>
+                        <li><i class="fa-regular fa-user"></i><a href="#">Tài khoản</a></li>
+                        <li><i class="fa-solid fa-user-pen"></i><a href="#">Thay đổi thông tin</a></li>
+                        <li><i class="fa-solid fa-clock-rotate-left"></i><a href="#">Lịch sử giao dịch</a></li>
+                        <li><i class="fa-solid fa-cart-plus"></i><a href="#">Đơn hàng của bạn</a></li>
+                        <li><i class="fa-solid fa-money-check-dollar"></i><a href="#">Nạp tiền</a></li>
+                        <li><i class="fa-solid fa-arrow-right-from-bracket"></i><a href="#">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="myaccount-content">
+                <h4>Tài khoản</h4>
+                <p>Xin chào quý khách  <em>lancave.</em></p>
+                <p>Đây là trang tổng quan của Vuavia.VN</p>
+                <p>Tại đây quý khách có thể xem lịch sử giao dịch, kiểm tra số dư, kiểm tra các đơn đặt hàng của quý khách một cách nhanh chóng! </p>
+<p>Chúc quý khách hàng <em>lancave</em> luôn gặp nhiều may mắn trong công việc, và có nhiều sức khỏe. Thay mặt đội ngũ QTV Vuavia cảm ơn duc2k2 đã tin tưởng và sử dụng dịch vụ của chúng tôi</p>
+            </div>
+            
+        </div>
+    </section>
+
+</body>
+<script>
+    $(document).ready(function () {
+        $('.slider-product').slick({
+            autoplay: true,
+            autoplaySpeed: 2000,
+            dots: true,
+            prevArrow: false, // Hide default "Previous" arrow
+            nextArrow: false  // Hide default "Next" arrow
+        });
+    });
+
+    const btndrop = document.getElementById('profile-icon');
+    const dropmenu = document.getElementById('dropdown-menu');
+
+    btndrop.addEventListener('click', () => {
+        dropmenu.classList.toggle('active');
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!btndrop.contains(event.target) && !dropmenu.contains(event.target)) {
+            dropmenu.classList.remove('active');
+        }
+    });
+
+    const iconmenu = document.getElementById('icon-menu');
+    const dropmenumain = document.getElementById('drop-menu');
+
+    iconmenu.addEventListener('click', () => {
+        dropmenumain.classList.toggle('active');
+    });
+
+</script>
+
+</html>
