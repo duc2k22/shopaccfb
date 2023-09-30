@@ -1,7 +1,7 @@
 <?php
 require_once "models/sanpham.php";
 
-class SanphamController{
+class AdminController{
     private $model = null;
     function __construct()
     {
@@ -9,7 +9,7 @@ class SanphamController{
 
     function index(){
         $titlePage = "Trang chủ";
-        $viewnoidung = "home.php";
+        $viewnoidung = "content.php";
         include "views/layout.php";
     }
 
