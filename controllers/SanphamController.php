@@ -12,9 +12,8 @@ class SanphamController{
         $viewnoidung = "home.php";
         include "views/layout.php";
     }
-
-    function products(){
-        echo "Con me may!";
+    function abc(){
+        echo "ABC";
     }
 }
 ?>
