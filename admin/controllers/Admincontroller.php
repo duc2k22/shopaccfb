@@ -1,6 +1,4 @@
 <?php
-require_once "models/sanpham.php";
-
 class AdminController{
     private $model = null;
     function __construct()
@@ -8,13 +6,13 @@ class AdminController{
     }
 
     function index(){
-        $titlePage = "Trang chủ";
-        $viewnoidung = "content.php";
-        include "views/layout.php";
+        echo "Trang chủqweeeeeeee";
     }
 
-    function products(){
-        echo "Con me may!";
+    function sanpham(){
+        echo " sản phẩm!";
     }
+
 }
+
 ?>
