@@ -15,7 +15,7 @@
     <?php include "header.php"; ?>
 
 
-    <!-- <?php include $viewnoidung; ?> -->
+    <?php include $viewnoidung; ?>
 
     <?php include "footer.php"; ?>
 </body>

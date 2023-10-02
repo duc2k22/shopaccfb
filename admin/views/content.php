@@ -1,5 +1,4 @@
-<div class="home-content">
-        <div class="overview-boxes">
+
           <div class="box">
             <div class="right-side">
               <div class="box-topic">Tổng đơn hàng</div>

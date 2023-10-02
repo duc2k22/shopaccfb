@@ -4,7 +4,7 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'shopfb');
 
-define('ROOT_URL', '/shopaccfb');
+define('ROOT_URL', '/shopaccfb/');
 
 define('ADMIN', ROOT_URL . '/admin');
 
