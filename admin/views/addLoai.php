@@ -56,16 +56,12 @@
     }
 </style>
 <div class="form-sp">
-    <form action="add-loai" method="post">
+    <form action="addloai" method="post">
         <h1>Thêm loại sản phẩm</h1>
         <label for="sanpham">Tên sản phẩm</label>
-        <input type="text" placeholder="Tên sản phẩm" name="sanpham">
-        <label for="sanpham">Tên sản phẩm</label>
-        <input type="text" placeholder="Tên sản phẩm" name="sanpham">
-        <label for="sanpham">Tên sản phẩm</label>
-        <input type="text" placeholder="Tên sản phẩm" name="sanpham">
-        <label for="sanpham">Tên sản phẩm</label>
-        <input type="text" placeholder="Tên sản phẩm" name="sanpham">
+        <input type="text" placeholder="Tên sản phẩm" name="name">
+        <label for="sanpham">Nội dung</label>
+        <input type="text" placeholder="Tên sản phẩm" name="noidung">
         <button type="submit">Thêm</button>
 
     </form>

@@ -31,7 +31,7 @@ $router =[
     ],
     'post'=>[
         'dangky' => [new UserController, 'dangky'],
-        'admin/add-loai' => [new AdminController, 'sanpham'],
+        'admin/addloai' => [new AdminController, 'addloai'],
 
     ],
 ];
