@@ -12,5 +12,8 @@ class SanphamController{
         $viewnoidung = "home.php";
         include "views/layout.php";
     }
+    function abc(){
+        echo "ABC";
+    }
 }
 ?>

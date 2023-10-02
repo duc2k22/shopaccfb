@@ -4,7 +4,7 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'shopfb');
 
-define('ROOT_URL', '/shopfb');
+define('ROOT_URL', '/shopaccfb');
 
 // các tệp css
 define('CSS_PATH', ROOT_URL . 'public/css/');
