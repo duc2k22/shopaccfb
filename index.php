@@ -10,7 +10,7 @@ spl_autoload_register(function($class){
     }elseif(file_exists($adminClassFile)){
         require_once $adminClassFile;
     }else{
-        die("Không tìm thấy file nào" .$class);
+        die("Không tìm thấy file:" .$class);
     }
 
 });
@@ -22,16 +22,17 @@ $router =[
         // route Users
         '' => [new SanphamController, 'index'],
         'abc' => [new SanphamController, 'abc'],
-        //rotew Admin
+        //route Admin
         'admin' => [new AdminController, 'index'],
         'admin/add' => [new AdminController, 'sanpham'],
-        'admin/login' => [new AdminController, 'login'],
+        'admin/themaccount' => [new AdminController, 'addAccount'],
 
 
     ],
     'post'=>[
-        'dangky' => [new UserController, 'dangky'],
         'admin/addloai' => [new AdminController, 'addloai'],
+        'admin/addloaisp' => [new AdminController, 'addAcc'],
+
 
     ],
 ];
