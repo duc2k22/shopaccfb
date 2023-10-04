@@ -18,6 +18,10 @@ class Database {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function prepare($query) {
+        return $this->conn->prepare($query);
+    }
+
     public function insert($query, $params){
         $stmt = $this->conn->prepare($query);
         return $stmt->execute($params);

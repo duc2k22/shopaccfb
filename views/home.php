@@ -32,25 +32,32 @@
         </div>
         <h2 class="gach-chan-ban-chay"></h2>
         <div class="container-product">
-
+        <?php 
+                   foreach($productList as $lissacc) { ?>
             <div class="product">
-                <div class="img-product">
+                
+                   <div class="img-product">
                     <img src="asset/img/Hotmail-Trust-song-6-12-thang-300x300.png" alt="">
                 </div>
                 <div class="title-product">
-                    <h2>Hotmail Trust sống 6-12 tháng chuyên dùng Verify</h2>
+                    <h2><?= $lissacc['name'] ?></h2>
                 </div>
-                <span class="ton-kho">Còn lại: 1000 sản phẩm</span>
+                <span class="ton-kho">Còn lại: <?= $lissacc['quantity_available'] ?></span>
                 <div class="price">
-                    <span class="price">50000đ</span>
-                    <span class="price-sale">10000đ</span>
+                    <span class="price"><?= number_format($lissacc['original_price'], 0, '', ',') ?>đ</span>
+                    <span class="price-sale"><?= number_format($lissacc['discounted_price']), 0, '' ?>đ</span>
                 </div>
                 <div class="btn-cart-product">
                     <button class="btn-cart"><i class="fa-solid fa-cart-plus"></i></button>
                     <button class="btn-product">Mua ngay</button>
                 </div>
 
+
+                 
+                
+
             </div>
+            <?php } ?>
             <div class="product">
                 <div class="img-product">
                     <img src="asset/img/Hotmail-Trust-song-6-12-thang-300x300.png" alt="">

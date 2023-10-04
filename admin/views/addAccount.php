@@ -68,7 +68,7 @@
     }
 </style>
 <div class="form-sp">
-    <form action="addloaisp" method="post">
+    <form action="themaccount" method="post">
         <h1>Thêm sản phẩm</h1>
         <!-- Hiển thị lỗi -->
         <div class="message">
@@ -88,7 +88,7 @@
         <input type="text" placeholder="Giá gốc" name="giagoc">
 
         <label for="sanpham">Giá giảm</label>
-        <input type="text" placeholder="Tên sản phẩm" name="Giá giảm">
+        <input type="text" placeholder="Tên sản phẩm" name="giagiam">
 
         <label for="sanpham">Bạn bè min</label>
         <input type="text" placeholder="Số bạn bè tối thiểu" name="banbemin">
@@ -135,12 +135,15 @@
         <label for="sanpham">Năm tạo tối đa</label>
         <input type="text" placeholder="Năm tạo tối đa" name="yearmax">
 
+        <label for="image_url">URL hình ảnh:</label>
+        <input type="text" name="image_url"><br>
+
         <label for="account_type">Chọn loại tài khoản:</label>
         <select name="account_type">
-    <?php foreach($accounType as $loai) { ?>
-        <option value="<?= $loai['type_id'] ?>"><?= $loai['type_name'] ?></option>
-    <?php } ?>
-</select><br>
+            <?php foreach ($accounType as $loai) { ?>
+                <option value="<?= $loai['type_id'] ?>"><?= $loai['type_name'] ?></option>
+            <?php } ?>
+        </select><br>
 
 
         <button type="submit">Thêm</button>

@@ -10,16 +10,26 @@ class SanphamController
     }
 
     function index()
-    {
-        $titlePage = "Trang chủ";
-        $viewnoidung = "home.php";
-        // Lấy tham số type_id từ URL
-        $type_id = isset($_GET['type_id']) ? $_GET['type_id'] : null;
+{
+    $titlePage = "Trang chủ";
+    $viewnoidung = "home.php";
 
-        // Gọi phương thức trong model để lấy tài khoản theo loại
-        $accounType = $this->model->getIdloai();
-        include "views/layout.php";
+    // Gọi phương thức trong model để lấy danh sách loại sản phẩm
+    $accounType = $this->model->getIdloai();
+
+    // Kiểm tra xem có parameter type_id không
+    if (isset($_GET['type_id'])) {
+        $type_id = $_GET['type_id'];
+        // Gọi hàm để lấy danh sách sản phẩm theo type_id
+        $productList = $this->model->selectByTypeId($type_id);
+    } else {
+        // Nếu không có parameter type_id, lấy danh sách tất cả sản phẩm
+        $productList = $this->model->getAllaccounts();
     }
+
+    include "views/layout.php";
+}
+
     function abc()
     {
         echo "ABC";

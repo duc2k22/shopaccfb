@@ -32,6 +32,8 @@ $router =[
     'post'=>[
         'admin/addloai' => [new AdminController, 'addloai'],
         'admin/addloaisp' => [new AdminController, 'addAcc'],
+        'admin/themaccount' => [new AdminController, 'addAccount_'],
+
 
 
     ],
