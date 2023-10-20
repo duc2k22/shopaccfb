@@ -15,7 +15,7 @@ class SanphamController
     $viewnoidung = "home.php";
 
     // Gọi phương thức trong model để lấy danh sách loại sản phẩm
-    $accounType = $this->model->getIdloai();
+    $accounType = $this->model->getAllloai();
 
     // Kiểm tra xem có parameter type_id không
     if (isset($_GET['type_id'])) {

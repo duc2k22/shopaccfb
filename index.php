@@ -24,7 +24,10 @@ $router =[
         'abc' => [new SanphamController, 'abc'],
         //route Admin
         'admin' => [new AdminController, 'index'],
-        'admin/add' => [new AdminController, 'sanpham'],
+        'admin/addloai' => [new AdminController, 'loaisp'],
+        'admin/dsloai' => [new AdminController, 'dsloai'],
+        'admin/editloai' => [new AdminController, 'editloai'],
+        'admin/deleteloai' => [new AdminController, 'deleteloai'], 
         'admin/themaccount' => [new AdminController, 'addAccount'],
 
 
@@ -32,6 +35,7 @@ $router =[
     'post'=>[
         'admin/addloai' => [new AdminController, 'addloai'],
         'admin/addloaisp' => [new AdminController, 'addAcc'],
+        'admin/editloai_' => [new AdminController, 'editloai_'],
         'admin/themaccount' => [new AdminController, 'addAccount_'],
 
 

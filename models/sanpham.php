@@ -17,10 +17,34 @@ class sanpham
         return $this->conn->insert($query, $params);
     }
 
-    function getIdloai()
+    function getAllloai()
     {
         $query = "SELECT * from accounttypes";
         return $this->conn->select($query);
+    }
+    function getidLoai($type_id){
+        $query = "SELECT * FROM accounttypes where type_id = :type_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(':type_id', $type_id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
+    function editLoai($type_id, $type_name, $description){
+        $query = "UPDATE accounttypes SET type_name = :type_name, description = :description WHERE type_id = :type_id";
+        $params = array(
+            ':type_id' => $type_id,
+            ':type_name' => $type_name,
+            ':description' => $description,
+        );
+        return $this->conn->update($query, $params);
+    }
+    function deleteloai($type_id){
+        $query = "DELETE from accounttypes where type_id =:type_id ";
+        $params = array(
+            ':type_id' => $type_id,
+        );
+        return $this->conn->delete($query, $params);
     }
 
     function addAccount($accountDetails)
