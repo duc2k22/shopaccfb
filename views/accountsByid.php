@@ -23,7 +23,7 @@
                     <img src="asset/img/Hotmail-Trust-song-6-12-thang-300x300.png" alt="">
                 </div>
                 <div class="title-product">
-                    <h2><?= $lissacc['name'] ?></h2>
+                    <a href="<?= ROOT_URL . 'chitiet?id=' . $lissacc['account_id'] ?>"><h2><?= $lissacc['name'] ?></h2></a>
                 </div>
                 <span class="ton-kho">Còn lại: <?= $lissacc['quantity_available'] ?></span>
                 <div class="price">

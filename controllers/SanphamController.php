@@ -11,22 +11,13 @@ class SanphamController
 
     function index()
     {
+        $isDanhMucPage = false;
         $titlePage = "Trang chủ";
         $slideshow = "slideshow.php";
         $viewnoidung = "home.php";
 
         // Gọi phương thức trong model để lấy danh sách loại sản phẩm
         $accounType = $this->model->getAllloai();
-
-        // // Kiểm tra xem có parameter type_id không
-        // if (isset($_GET['type_id'])) {
-        //     $type_id = $_GET['type_id'];
-        //     // Gọi hàm để lấy danh sách sản phẩm theo type_id
-        //     $productList = $this->model->selectByTypeId($type_id);
-        // } else {
-        //     // Nếu không có parameter type_id, lấy danh sách tất cả sản phẩm
-        //     $productList = $this->model->getAllaccounts();
-        // }
 
         include "views/layout.php";
     }
@@ -44,7 +35,7 @@ class SanphamController
     }
     function danhmuc()
     {
-        var_dump($_GET);
+        // var_dump($_GET);
         $accounType = $this->model->getAllloai();
         // Lấy loại tài khoản từ URL hoặc các tham số khác nếu cần
         $type_id = isset($_GET['type_id']) ? (int)$_GET['type_id'] : 0;
@@ -60,5 +51,20 @@ class SanphamController
         $slideshow = "slideshow.php";
         $viewnoidung = "accountsByid.php";
         include 'views/layout.php';
+    }
+    function chitiet(){
+        $account_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        $accounType = $this->model->getAllloai();
+
+        
+
+        $account_id = $this->model->getAccountByid($account_id);
+        $isDanhMucPage = true; // Đặt biến kiểm tra là true
+
+        $titlePage = $account_id['name'];
+        $slideshow = "slideshow.php";
+        $viewnoidung  = "chitiet.php";
+        include "views/layout.php";
+
     }
 }

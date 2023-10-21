@@ -23,6 +23,7 @@ $router =[
         '' => [new SanphamController, 'index'],
         'abc' => [new SanphamController, 'abc'],
         'danhmuc' => [new SanphamController, 'danhmuc'],
+        'chitiet' => [new SanphamController, 'chitiet'],
         //route Admin
         'admin' => [new AdminController, 'index'],
         'admin/addloai' => [new AdminController, 'loaisp'],

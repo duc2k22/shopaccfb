@@ -78,6 +78,13 @@ class sanpham
         $query = "SELECT * FROM accounts";
         return $this->conn->select($query);
     }
+    function getAccountByid($account_id){
+        $query = "SELECT * FROM accounts where account_id = :account_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':account_id', $account_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
     public function selectByTypeId($type_id) {
         $query = "SELECT * FROM accounts WHERE account_type_id = :type_id";
