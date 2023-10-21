@@ -24,15 +24,15 @@
             <i class="fa-solid fa-bars" id="icon-menu"></i>
             <div class="menu-left">
                 <div class="logo">
-                    <a href="#"><img src="asset/img/logo.svg" alt=""></a>
+                    <a href="<?= ROOT_URL ?>"><img src="asset/img/logo.svg" alt=""></a>
                 </div>
                 <ul class="menu" id="drop-menu">
                     <li><a href="<?= ROOT_URL ?>">HOME</a></li>
                     <?php
                     foreach ($accounType as $type) {
-                        $url = ROOT_URL . "?type_id=" . $type['type_id'];
                     ?>
-                        <li><a href="<?= $url ?>"><?= $type['type_name'] ?></a></li>
+                        <li><a href="<?= ROOT_URL . "danhmuc?type_id=" . $type['type_id']; ?>"><?= $type['type_name'] ?></a></li>
+
                     <?php } ?>
                 </ul>
 

@@ -22,6 +22,7 @@ $router =[
         // route Users
         '' => [new SanphamController, 'index'],
         'abc' => [new SanphamController, 'abc'],
+        'danhmuc' => [new SanphamController, 'danhmuc'],
         //route Admin
         'admin' => [new AdminController, 'index'],
         'admin/addloai' => [new AdminController, 'loaisp'],

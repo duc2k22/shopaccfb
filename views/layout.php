@@ -27,16 +27,20 @@
     <?php include "header.php"; ?>
     <!-- end header -->
 
+    <?php if (!$isDanhMucPage) : ?>
+        <!-- Chỉ hiển thị $slideshow nếu không ở trang danh mục -->
+        <?php include $slideshow ?>
+    <?php endif ?>
+
     <!-- content -->
     <?php include $viewnoidung; ?>
     <!-- end content -->
 
     <!-- footer -->
     <?php include "footer.php"; ?>
-
     <!-- end footer -->
-   
 </body>
+
 <script>
      $(document).ready(function(){
             $('.slider-product').slick({

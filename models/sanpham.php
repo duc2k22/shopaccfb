@@ -82,10 +82,26 @@ class sanpham
     public function selectByTypeId($type_id) {
         $query = "SELECT * FROM accounts WHERE account_type_id = :type_id";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':type_id', $type_id, PDO::PARAM_INT);
+        $stmt->bindValue(':type_id', $type_id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    // lấy tên loại theo id
+    function getTypeNameById($type_id)
+    {
+        $query = "SELECT type_name FROM accounttypes WHERE type_id = :type_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':type_id', $type_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($result) {
+            return $result['type_name'];
+        } else {
+            return "Loại không tồn tại"; // Hoặc giá trị mặc định khác tùy bạn
+        }
+    }
+    
     
     
 }
