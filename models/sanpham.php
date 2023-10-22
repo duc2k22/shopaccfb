@@ -90,9 +90,18 @@ class sanpham
         $query = "SELECT * FROM accounts WHERE account_type_id = :type_id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindValue(':type_id', $type_id, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        if ($stmt->execute()) {
+            // Kiểm tra xem có bất kỳ sản phẩm nào được trả về không
+            if ($stmt->rowCount() > 0) {
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
+        }
+    
+        // Trường hợp không có sản phẩm nào được tìm thấy hoặc có lỗi trong quá trình thực hiện truy vấn
+        return [];
     }
+    
     // lấy tên loại theo id
     function getTypeNameById($type_id)
     {

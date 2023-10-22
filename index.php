@@ -24,6 +24,9 @@ $router =[
         'abc' => [new SanphamController, 'abc'],
         'danhmuc' => [new SanphamController, 'danhmuc'],
         'chitiet' => [new SanphamController, 'chitiet'],
+        'addtocart' => [new SanphamController, 'addtoCart'],
+        'giohang' => [new SanphamController, 'giohang'],
+        'deletecart' => [new SanphamController,'deletecart'],
         //route Admin
         'admin' => [new AdminController, 'index'],
         'admin/addloai' => [new AdminController, 'loaisp'],
