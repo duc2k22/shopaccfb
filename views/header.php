@@ -1,25 +1,25 @@
+<?php
+// Lấy danh sách sản phẩm từ giỏ hàng
+$cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+$productList = [];
+
+// Lặp qua từng sản phẩm trong giỏ hàng và lấy thông tin sản phẩm từ cơ sở dữ liệu
+foreach ($cart as $productId => $quantity) {
+    $product = $this->model->getAccountByid($productId);
+    if ($product) {
+        // Thêm thông tin số lượng sản phẩm và tổng tiền vào sản phẩm
+        $product['quantity'] = $quantity;
+        $product['totalPrice'] = $product['discounted_price'] * $quantity;
+        $productList[] = $product;
+    }
+}
+
+// Tính tổng tiền
+$totalPrice = array_sum(array_column($productList, 'totalPrice'));
+?>
 <header>
     <div class="container-menu">
-        <!-- <div class="menu-top">
-                <div class="menu-left">
-                    <div class="logo">
-                        <a href="#"><img src="asset/img/logo.svg" alt=""></a>
-                    </div>
-                    <div class="search-menu">
-                        <input type="text" placeholder="Tìm kiếm...">
-                        <button>Tìm</button>
-                    </div>
-                </div>
-                <div class="user-login-money">
-                    <div class="login-user">
-                        <a href="#">Đăng nhập</a>
-                    </div>
-                    <div class="money">
-                        <a href="#"><span>Số dư: 0đ</span></a>
-
-                    </div>
-                </div>
-            </div> -->
+        
         <div class="menu-main">
             <i class="fa-solid fa-bars" id="icon-menu"></i>
             <div class="menu-left">
@@ -57,19 +57,19 @@
                     <a href="#"><i class="fa-solid fa-cart-plus"></i> <span class="gio-hang">Giỏ hàng</span></a>
                     <span class="soluong">0</span>
                     <div class="menu-cart">
+                <?php foreach ($productList as $product) { ?>
+
                         <div class="cart-info">
                             <img src="asset/img/Hotmail-Trust-song-6-12-thang-300x300.png" alt="">
-                            <a href="#">Hotmail Trust sống 6-12 tháng chuyên dùng Verify</a>
+                            <a href="#"><?= $product['name'] ?></a>
                             <a href="#"><i class="fa-solid fa-trash-can"></i></a>
                         </div>
-                        <div class="cart-info">
-                            <img src="asset/img/Hotmail-Trust-song-6-12-thang-300x300.png" alt="">
-                            <a href="#">Hotmail Trust sống 6-12 tháng chuyên dùng Verify</a>
-                            <a href="#"><i class="fa-solid fa-trash-can"></i></a>
-                        </div>
+               <?php } ?>
+
+                        
 
                         <div class="total-cart">
-                            <h5>Tổng tiền: <span>100.000đ</span></h5>
+                            <h5>Tổng tiền: <span><?= number_format($totalPrice, 0, '', ',')?></span></h5>
                         </div>
                         <div class="cart-info-thanhtoan">
                             <div class="cart-thanhtoan">
