@@ -78,7 +78,14 @@
         <label for="sanpham">Tên sản phẩm</label>
         <input type="text" placeholder="Tên sản phẩm" name="name">
         <label for="sanpham">Nội dung</label>
-        <input type="text" placeholder="Tên sản phẩm" name="noidung">
+        <input type="text" placeholder="Nội dung" name="noidung">
+        <label for="sanpham">Ẩn hiện</label>
+        <select name="anhien" id="">
+            <option value="0">Ẩn</option>
+            <option value="1">HIện</option>
+        </select>
+        <label for="sanpham">Thứ tự</label>
+        <input type="text" placeholder="Thứ tự" name="thutu">
         <button type="submit">Thêm</button>
 
     </form>

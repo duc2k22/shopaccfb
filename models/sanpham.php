@@ -10,16 +10,16 @@ class sanpham
         $this->conn = new Database();
     }
 
-    public function addLoai($type_name, $description)
+    public function addLoai($type_name, $description, $anhien, $thutu)
     {
-        $query = "INSERT INTO accounttypes (type_name, description) VALUES (:name, :description)";
-        $params = array(':name' => $type_name, ':description' => $description);
+        $query = "INSERT INTO accounttypes (type_name, description, anhien, thutu) VALUES (:name, :description, :anhien, :thutu)";
+        $params = array(':name' => $type_name, ':description' => $description, ':anhien' => $anhien, ':thutu' => $thutu);
         return $this->conn->insert($query, $params);
     }
 
     function getAllloai()
     {
-        $query = "SELECT * from accounttypes";
+        $query = "SELECT * FROM accounttypes where anhien = 1 ORDER BY thutu";
         return $this->conn->select($query);
     }
     function getidLoai($type_id){
@@ -30,12 +30,14 @@ class sanpham
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
-    function editLoai($type_id, $type_name, $description){
-        $query = "UPDATE accounttypes SET type_name = :type_name, description = :description WHERE type_id = :type_id";
+    function editLoai($type_id, $type_name, $description, $anhien, $thutu){
+        $query = "UPDATE accounttypes SET type_name = :type_name, description = :description, anhien =:anhien, thutu = :thutu WHERE type_id = :type_id";
         $params = array(
             ':type_id' => $type_id,
             ':type_name' => $type_name,
             ':description' => $description,
+            ':anhien' => $anhien,
+            ':thutu' => $thutu,
         );
         return $this->conn->update($query, $params);
     }

@@ -14,7 +14,6 @@ spl_autoload_register(function($class){
     }
 
 });
-
 $baseDir ="/shopaccfb/";
 
 $router =[
@@ -28,6 +27,9 @@ $router =[
         'giohang' => [new SanphamController, 'giohang'],
         'deletecart' => [new SanphamController,'deletecart'],
         'header' => [new SanphamController, 'header'],
+        'dangky' => [new UserController, 'dangky'],
+        'dangnhap' => [new UserController, 'dangnhap'],
+
         //route Admin
         'admin' => [new AdminController, 'index'],
         'admin/addloai' => [new AdminController, 'loaisp'],
@@ -35,10 +37,16 @@ $router =[
         'admin/editloai' => [new AdminController, 'editloai'],
         'admin/deleteloai' => [new AdminController, 'deleteloai'], 
         'admin/themaccount' => [new AdminController, 'addAccount'],
+        
 
 
     ],
     'post'=>[
+        // route USer
+        'dangky' => [new UserController, 'dangky_'],
+        'dangnhap' => [new UserController, 'dangnhap_'],
+
+
         'admin/addloai' => [new AdminController, 'addloai'],
         'admin/addloaisp' => [new AdminController, 'addAcc'],
         'admin/editloai_' => [new AdminController, 'editloai_'],

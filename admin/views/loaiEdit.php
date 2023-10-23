@@ -77,10 +77,22 @@
             } ?>
         </div>
         <input type="hidden" name="type_id" value="<?= $dsloai['type_id'] ?>">
+
         <label for="name">Tên loại</label>
         <input type="text" name="type_name" value="<?= $dsloai['type_name']; ?>">
+
         <label for="noidung">Nội dung</label>
         <input type="text" name="description" value="<?= $dsloai['description'] ?>">
+
+        <label for="anhien">Ẩn hiện</label>
+        <select name="anhien" id="">
+            <option value="1" <?php if ($dsloai['anhien'] == 1) echo "selected"; ?>>Hiện</option>
+            <option value="0" <?php if ($dsloai['anhien'] == 0) echo "selected"; ?>>Ẩn</option>
+        </select>
+
+        <label for="noidung">Thứ tự</label>
+        <input type="text" name="thutu" value="<?= $dsloai['thutu'] ?>">
+
         <button type="submit">Sửa</button>
     </form>
 </div>

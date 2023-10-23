@@ -31,10 +31,12 @@ class AdminController
     {
         $name = trim(strip_tags($_POST['name']));
         $noidung = trim(strip_tags($_POST['noidung']));
-        if (empty($name) || empty($noidung)) {
+        $anhien = trim(strip_tags($_POST['anhien']));
+        $thutu = trim(strip_tags($_POST['thutu']));
+        if (empty($name) || empty($noidung) || empty($thutu)) {
             $message = "Vui lòng nhập đầu đủ thông tin!";
         } else {
-            $them = $this->model->addLoai($name, $noidung);
+            $them = $this->model->addLoai($name, $noidung, $anhien, $thutu);
             $message = $them ? "Thêm loại thành công" : "Thêm thất bại";
         }
         $titlePage = "Thêm loại sản phẩm";
@@ -84,8 +86,10 @@ class AdminController
 
         $type_name = trim(strip_tags($_POST['type_name']));
         $description = trim(strip_tags($_POST['description']));
+        $anhien = trim(strip_tags($_POST['anhien']));
+        $thutu = trim(strip_tags($_POST['thutu']));
 
-        $them = $this->model->editLoai($type_id, $type_name, $description);
+        $them = $this->model->editLoai($type_id, $type_name, $description, $anhien, $thutu);
         echo "Sửa loại $type_id thành công";
     }
 
