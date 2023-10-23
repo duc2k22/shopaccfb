@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 02, 2023 lúc 05:35 AM
+-- Thời gian đã tạo: Th10 23, 2023 lúc 08:34 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -31,6 +31,7 @@ CREATE TABLE `accounts` (
   `account_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL COMMENT 'Tên trò chơi',
   `description` text DEFAULT NULL COMMENT 'Mô tả tài khoản',
+  `image_url` varchar(200) NOT NULL,
   `quantity_available` int(11) NOT NULL COMMENT 'Số lượng có sẵn',
   `original_price` decimal(10,2) NOT NULL COMMENT 'Giá gốc',
   `discounted_price` decimal(10,2) NOT NULL COMMENT 'Giá giảm',
@@ -47,6 +48,17 @@ CREATE TABLE `accounts` (
   `account_type_id` int(11) DEFAULT NULL COMMENT 'ID loại tài khoản'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `accounts`
+--
+
+INSERT INTO `accounts` (`account_id`, `name`, `description`, `image_url`, `quantity_available`, `original_price`, `discounted_price`, `min_friends_count`, `max_friends_count`, `country`, `xmdt_status`, `backup_available`, `twofa_available`, `email_available`, `min_created_year`, `max_created_year`, `cp_via_email`, `account_type_id`) VALUES
+(1, 'Via Campuchia', 'acc via singapo', 'https://4menshop.com/cache/image/300x400/images/thumbs/2019/08/ao-vest-nazafu-mau-da-bo-1138_2_small-10928.JPG', 100, 200000.00, 4000000.00, 100, 1500, 'VN', '1', 1, 0, 0, 2021, 2023, 0, 1),
+(2, 'ÁO VEST NAZAFU MÀU XÁM AV1138', 'namnam', 'https://4menshop.com/cache/image/300x400/images/thumbs/2019/08/ao-vest-nazafu-mau-da-bo-1138_2_small-10928.JPG', 100, 200000.00, 14000.00, 100, 1500, 'VN', '1', 1, 1, 1, 0, 0, 1, 1),
+(3, 'ÁO VEST NAZAFU MÀU Xanh AV1138', 'acc fb việt nam', 'https://4menshop.com/cache/image/300x400/images/thumbs/2019/08/ao-vest-nazafu-mau-da-bo-1138_2_small-10928.JPG', 1, 200000.00, 14000.00, 100, 1500, 'VN', '1', 1, 1, 1, 2021, 0, 1, 2),
+(4, 'ÁO VEST NAZAFU MÀU Xanh AV1138', 'acc fb việt nam', 'https://4menshop.com/cache/image/300x400/images/thumbs/2019/08/ao-vest-nazafu-mau-da-bo-1138_2_small-10928.JPG', 0, 200000.00, 14000.00, 100, 1500, 'VN', '1', 1, 1, 1, 2021, 0, 1, 2),
+(5, 'Via Thái Lan', 'acc fb việt nam', 'https://4menshop.com/cache/image/300x400/images/thumbs/2019/08/ao-vest-nazafu-mau-da-bo-1138_2_small-10928.JPG', 100, 200000.00, 14000.00, 100, 0, '', '1', 1, 1, 1, 0, 0, 1, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -56,8 +68,20 @@ CREATE TABLE `accounts` (
 CREATE TABLE `accounttypes` (
   `type_id` int(11) NOT NULL COMMENT 'ID loại tài khoản',
   `type_name` varchar(255) NOT NULL COMMENT 'Tên loại tài khoản',
-  `description` text DEFAULT NULL COMMENT 'Mô tả loại tài khoản'
+  `description` text DEFAULT NULL COMMENT 'Mô tả loại tài khoản',
+  `anhien` tinyint(1) DEFAULT 1 COMMENT 'Ẩn/Hiện',
+  `thutu` int(11) DEFAULT NULL COMMENT 'Thứ tự'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `accounttypes`
+--
+
+INSERT INTO `accounttypes` (`type_id`, `type_name`, `description`, `anhien`, `thutu`) VALUES
+(1, 'Via Việt', 'acc fb việt nam', 1, NULL),
+(2, 'Via Thái Lan', 'acc via thailan', 1, NULL),
+(3, 'Via Campuchia', 'acc via thailan', 1, NULL),
+(4, 'Via Singapo', 'acc via singapo', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -133,6 +157,13 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Đang đổ dữ liệu cho bảng `users`
+--
+
+INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `full_name`, `address`, `phone_number`, `account_balance`, `created_at`, `role`) VALUES
+(1, 'lancave', '$2y$10$mcyp4HjfyZN61mOZV0GQAOPcjKjXa4S4MUGQUWL5/V21EUR1ZNhiy', 'nam000@gmail.com', NULL, NULL, NULL, 10000000.00, '2023-10-23 16:08:12', NULL);
+
+--
 -- Chỉ mục cho các bảng đã đổ
 --
 
@@ -193,13 +224,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `accounttypes`
 --
 ALTER TABLE `accounttypes`
-  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID loại tài khoản';
+  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID loại tài khoản', AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `lichsumuahang`
@@ -229,7 +260,7 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
