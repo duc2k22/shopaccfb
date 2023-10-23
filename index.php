@@ -29,6 +29,7 @@ $router =[
         'header' => [new SanphamController, 'header'],
         'dangky' => [new UserController, 'dangky'],
         'dangnhap' => [new UserController, 'dangnhap'],
+        'muahang' =>  [new UserController, 'muahang'],
 
         //route Admin
         'admin' => [new AdminController, 'index'],

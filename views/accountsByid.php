@@ -54,16 +54,32 @@
                             <i class="fa-solid fa-cart-plus"></i>
                         </a>
                   <?php } ?>
-                    <button class="btn-product">Mua ngay</button>
+                  <button class="btn-product" data-account-id="<?= $lissacc['account_id'] ?>" data-product-price="<?= $lissacc['discounted_price'] ?>">Mua ngay</button>
+
                 </div>
-
-
-
-
-
-
             </div>
         <?php } ?>
 
     </div>
 </section>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var buyButtons = document.querySelectorAll(".btn-product");
+
+    buyButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            var accountId = button.getAttribute("data-account-id");
+            var productPrice = button.getAttribute("data-product-price");
+
+            // Thực hiện xử lý mua sản phẩm với accountId và productPrice
+            // Gọi controller để xử lý việc mua sản phẩm
+
+            // Ví dụ:
+             window.location = "danhmuc?account_id=" + accountId + "&product_price=" + productPrice;
+        });
+    });
+});
+
+</script>
+
+

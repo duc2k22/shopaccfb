@@ -1,12 +1,15 @@
 <?php
 require_once "models/sanpham.php";
+require_once "models/usermodel.php";
 
 class SanphamController
 {
     private $model = null;
+    private $usermodel = null;
     function __construct()
     {
         $this->model = new sanpham();
+        $this->usermodel = new usermodel();
     }
 
     function index()
@@ -29,13 +32,13 @@ class SanphamController
     {
         echo "ABC";
     }
-    function addloai()
-    {
-        $name = trim(strip_tags($_POST['name']));
-        $noidung = trim(strip_tags($_POST['noidung']));
-        $them = $this->model->addLoai($name, $noidung);
-        echo "Thêm loại thành công!";
-    }
+    // function addloai()
+    // {
+    //     $name = trim(strip_tags($_POST['name']));
+    //     $noidung = trim(strip_tags($_POST['noidung']));
+    //     $them = $this->model->addLoai($name, $noidung);
+    //     echo "Thêm loại thành công!";
+    // }
     function danhmuc()
     {
         // var_dump($_GET);
@@ -54,6 +57,9 @@ class SanphamController
         $slideshow = "slideshow.php";
         $viewnoidung = "accountsByid.php";
         include 'views/layout.php';
+
+        
+
     }
     function chitiet()
     {

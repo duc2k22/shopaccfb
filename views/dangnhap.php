@@ -111,6 +111,9 @@
         color: #004c9d;
         transition: all 0.4s each;
     }
+    .error{
+        color: red;
+    }
 
     @media(max-width: 710px) {
         .form-dangky {
@@ -123,25 +126,30 @@
 <body>
     <div class="form-dangky">
 
-        <form method="post" action="dangky">
-            <h1 class="text-h1">Đăng ký</h1>
+        <form method="post" action="dangnhap">
+            <h1 class="text-h1">Đăng Nhập</h1>
+            <?php 
+        if (isset($errors) && is_array($errors)) {
+            foreach ($errors as $error) {
+        ?>
+        <div class="error">
+            <p><?= $error ?></p>
+        </div>
+        <?php
+            }
+        }
+        ?>
             <label for="username">Tên đăng nhập:</label>
             <input type="text" name="username">
 
             <label for="password">Mật khẩu:</label>
             <input type="password" name="password">
 
-            <label for="confirm_password">Nhập lại mật khẩu:</label>
-            <input type="password" name="confirm_password">
-
-            <label for="email">Email:</label>
-            <input type="email" name="email" required>
-
-            <button type="submit">Đăng ký</button>
+            <button type="submit">Đăng nhập</button>
 
             <div class="tex-login">
-                <span>Đã có tài khoản? </span>
-                <a href="<?= ROOT_URL . 'dangnhap' ?>">Đăng nhập ngay</a>
+                <span>Đã chưa có tài khoản? </span>
+                <a href="<?=  ROOT_URL . 'dangky' ?>">Đăng ký ngay</a>
             </div>
         </form>
     </div>
