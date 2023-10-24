@@ -42,7 +42,7 @@
                 <span class="ton-kho">Còn lại: <?= $lissacc['quantity_available'] ?></span>
                 <div class="price">
                     <span class="price"><?= number_format($lissacc['original_price'], 0, '', ',') ?>đ</span>
-                    <span class="price-sale"><?= number_format($lissacc['discounted_price']), 0, '' ?>đ</span>
+                    <span class="price-sale"><?= number_format($lissacc['discounted_price'], 0, '', ',') ?>đ</span>
                 </div>
                 <div class="btn-cart-product">
                     <?php if($quantity === 0) { ?>
@@ -54,7 +54,7 @@
                             <i class="fa-solid fa-cart-plus"></i>
                         </a>
                   <?php } ?>
-                  <button class="btn-product" data-account-id="<?= $lissacc['account_id'] ?>" data-product-price="<?= $lissacc['discounted_price'] ?>">Mua ngay</button>
+                  <a href="<?= ROOT_URL . 'muahang?id=' . $lissacc['account_id'] ?>" class="btn-product">Mua hàng</a>
 
                 </div>
             </div>
