@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 23, 2023 lúc 08:34 PM
+-- Thời gian đã tạo: Th10 24, 2023 lúc 02:26 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -53,11 +53,11 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`account_id`, `name`, `description`, `image_url`, `quantity_available`, `original_price`, `discounted_price`, `min_friends_count`, `max_friends_count`, `country`, `xmdt_status`, `backup_available`, `twofa_available`, `email_available`, `min_created_year`, `max_created_year`, `cp_via_email`, `account_type_id`) VALUES
-(1, 'Via Campuchia', 'acc via singapo', 'https://4menshop.com/cache/image/300x400/images/thumbs/2019/08/ao-vest-nazafu-mau-da-bo-1138_2_small-10928.JPG', 100, 200000.00, 4000000.00, 100, 1500, 'VN', '1', 1, 0, 0, 2021, 2023, 0, 1),
-(2, 'ÁO VEST NAZAFU MÀU XÁM AV1138', 'namnam', 'https://4menshop.com/cache/image/300x400/images/thumbs/2019/08/ao-vest-nazafu-mau-da-bo-1138_2_small-10928.JPG', 100, 200000.00, 14000.00, 100, 1500, 'VN', '1', 1, 1, 1, 0, 0, 1, 1),
-(3, 'ÁO VEST NAZAFU MÀU Xanh AV1138', 'acc fb việt nam', 'https://4menshop.com/cache/image/300x400/images/thumbs/2019/08/ao-vest-nazafu-mau-da-bo-1138_2_small-10928.JPG', 1, 200000.00, 14000.00, 100, 1500, 'VN', '1', 1, 1, 1, 2021, 0, 1, 2),
+(1, 'Via Campuchia', 'acc via singapo', 'https://4menshop.com/cache/image/300x400/images/thumbs/2019/08/ao-vest-nazafu-mau-da-bo-1138_2_small-10928.JPG', 99, 200000.00, 4000000.00, 100, 1500, 'VN', '1', 1, 0, 0, 2021, 2023, 0, 1),
+(2, 'ÁO VEST NAZAFU MÀU XÁM AV1138', 'namnam', 'https://4menshop.com/cache/image/300x400/images/thumbs/2019/08/ao-vest-nazafu-mau-da-bo-1138_2_small-10928.JPG', 95, 200000.00, 20000.00, 100, 1500, 'VN', '1', 1, 1, 1, 0, 0, 1, 1),
+(3, 'ÁO VEST NAZAFU MÀU Xanh AV1138', 'acc fb việt nam', 'https://4menshop.com/cache/image/300x400/images/thumbs/2019/08/ao-vest-nazafu-mau-da-bo-1138_2_small-10928.JPG', 1, 200000.00, 10000.00, 100, 1500, 'VN', '1', 1, 1, 1, 2021, 0, 1, 2),
 (4, 'ÁO VEST NAZAFU MÀU Xanh AV1138', 'acc fb việt nam', 'https://4menshop.com/cache/image/300x400/images/thumbs/2019/08/ao-vest-nazafu-mau-da-bo-1138_2_small-10928.JPG', 0, 200000.00, 14000.00, 100, 1500, 'VN', '1', 1, 1, 1, 2021, 0, 1, 2),
-(5, 'Via Thái Lan', 'acc fb việt nam', 'https://4menshop.com/cache/image/300x400/images/thumbs/2019/08/ao-vest-nazafu-mau-da-bo-1138_2_small-10928.JPG', 100, 200000.00, 14000.00, 100, 0, '', '1', 1, 1, 1, 0, 0, 1, 3);
+(5, 'Via Thái Lan', 'acc fb việt nam', 'https://4menshop.com/cache/image/300x400/images/thumbs/2019/08/ao-vest-nazafu-mau-da-bo-1138_2_small-10928.JPG', 99, 200000.00, 14000.00, 100, 0, '', '1', 1, 1, 1, 0, 0, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -82,6 +82,28 @@ INSERT INTO `accounttypes` (`type_id`, `type_name`, `description`, `anhien`, `th
 (2, 'Via Thái Lan', 'acc via thailan', 1, NULL),
 (3, 'Via Campuchia', 'acc via thailan', 1, NULL),
 (4, 'Via Singapo', 'acc via singapo', 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `account_details`
+--
+
+CREATE TABLE `account_details` (
+  `detail_id` int(11) NOT NULL,
+  `account_id` int(11) NOT NULL COMMENT 'ID của tài khoản chính',
+  `username` varchar(255) NOT NULL COMMENT 'Tên đăng nhập của tài khoản phụ',
+  `password` varchar(255) NOT NULL COMMENT 'Mật khẩu của tài khoản phụ',
+  `sold_status` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Trạng thái đã bán (1 = đã bán, 0 = chưa bán)'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `account_details`
+--
+
+INSERT INTO `account_details` (`detail_id`, `account_id`, `username`, `password`, `sold_status`) VALUES
+(1, 3, '1000521543651', 'DEAFDSR3', 0),
+(2, 3, '1000521152165', '24444444444', 0);
 
 -- --------------------------------------------------------
 
@@ -161,7 +183,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `full_name`, `address`, `phone_number`, `account_balance`, `created_at`, `role`) VALUES
-(1, 'lancave', '$2y$10$mcyp4HjfyZN61mOZV0GQAOPcjKjXa4S4MUGQUWL5/V21EUR1ZNhiy', 'nam000@gmail.com', NULL, NULL, NULL, 10000000.00, '2023-10-23 16:08:12', NULL);
+(1, 'lancave', '$2y$10$mcyp4HjfyZN61mOZV0GQAOPcjKjXa4S4MUGQUWL5/V21EUR1ZNhiy', 'nam000@gmail.com', NULL, NULL, NULL, 10000.00, '2023-10-23 16:08:12', NULL);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -179,6 +201,13 @@ ALTER TABLE `accounts`
 --
 ALTER TABLE `accounttypes`
   ADD PRIMARY KEY (`type_id`);
+
+--
+-- Chỉ mục cho bảng `account_details`
+--
+ALTER TABLE `account_details`
+  ADD PRIMARY KEY (`detail_id`),
+  ADD KEY `account_id` (`account_id`);
 
 --
 -- Chỉ mục cho bảng `lichsumuahang`
@@ -233,6 +262,12 @@ ALTER TABLE `accounttypes`
   MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID loại tài khoản', AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT cho bảng `account_details`
+--
+ALTER TABLE `account_details`
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT cho bảng `lichsumuahang`
 --
 ALTER TABLE `lichsumuahang`
@@ -271,6 +306,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `accounts`
   ADD CONSTRAINT `accounts_ibfk_1` FOREIGN KEY (`account_type_id`) REFERENCES `accounttypes` (`type_id`);
+
+--
+-- Các ràng buộc cho bảng `account_details`
+--
+ALTER TABLE `account_details`
+  ADD CONSTRAINT `account_details_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`account_id`);
 
 --
 -- Các ràng buộc cho bảng `lichsumuahang`

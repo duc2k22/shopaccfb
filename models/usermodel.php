@@ -168,4 +168,23 @@ class usermodel
         $params = array(":account_id"=> $productId,":quantity_available"=> $newQuantity);
         return $this->conn->update($query, $params);
     }
+
+    function getTypeIdForProduct($productId) {
+
+        // Viết truy vấn SQL để lấy type_id dựa trên $productId
+        $query = "SELECT account_type_id FROM accounts WHERE account_id = :product_id";
+
+        // Sử dụng PDO để thực hiện truy vấn
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":product_id", $productId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // Kiểm tra kết quả trả về
+        $result = $stmt->fetchColumn();
+        if ($result !== false) {
+            return $result;
+        } else {
+            return false; // Trả về false nếu không tìm thấy type_id
+        }
+    }
 }

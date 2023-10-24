@@ -38,6 +38,9 @@ $router =[
         'admin/editloai' => [new AdminController, 'editloai'],
         'admin/deleteloai' => [new AdminController, 'deleteloai'], 
         'admin/themaccount' => [new AdminController, 'addAccount'],
+        'admin/addtaikhoan' => [new AdminController,'addtaikhoan'],
+        'admin/dstaikhoan' => [new AdminController,'dstaikhoan'],
+        'admin/edittaikhoan' => [new AdminController,'edittaikhoan'],
         
 
 
@@ -52,6 +55,10 @@ $router =[
         'admin/addloaisp' => [new AdminController, 'addAcc'],
         'admin/editloai_' => [new AdminController, 'editloai_'],
         'admin/themaccount' => [new AdminController, 'addAccount_'],
+        'admin/addtaikhoan' => [new AdminController,'addtaikhoan_'],
+        'admin/edittaikhoan' => [new AdminController,'edittaikhoan_'],
+
+
 
 
 

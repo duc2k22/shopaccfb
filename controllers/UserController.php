@@ -111,46 +111,110 @@ class UserController
             }
         }
     }
-    public function muahang() {
-        if (!isset($_SESSION['user_id'])) {
-            echo "Vui lòng đăng nhập để mua hàng.";
-            return;
-        }
 
+    // Mua hàng
+    function muahang()
+{
+    $titlePage = 'Mua hàng';
+    include 'views/muahang.php';
+    $errors = array(); // Tạo mảng lưu thông báo lỗi
+
+    if (!isset($_SESSION['user_id'])) {
+        $errors[] = 'Vui lòng đăng nhập để mua hàng';
+    } else {
         $userId = $_SESSION['user_id'];
         $productId = $_GET['id'];
+        $typeId = $this->model->getTypeIdForProduct($productId); // Lấy typeId
 
         // Lấy giá sản phẩm từ cơ sở dữ liệu
         $productPrice = $this->model->getProductPrice($productId);
 
+        // Kiểm tra số dư người dùng
         $userBalance = $this->model->checkUserBalance($userId, $productPrice);
 
-        if ($userBalance) {
+        if ($userBalance !== false) {
             $newBalance = $userBalance - $productPrice;
 
-            // Tính toán số lượng sản phẩm mới, ví dụ: giảm 1 sản phẩm sau mỗi lần mua
+            // Lấy số lượng sản phẩm hiện tại
             $currentQuantity = $this->model->getCurrentProductQuantity($productId);
-            $newQuantity = $currentQuantity - 1;
+            $newQuantity = $currentQuantity - 1; // Giảm đi 1 sau mỗi lần mua
 
             // Kiểm tra số lượng sản phẩm
             if ($newQuantity <= 0) {
-                echo "Hết hàng";
+                $errors[] = 'Hết hàng';
             } else {
-                // Cập nhật số dư người dùng
                 if ($this->model->updateBalance($userId, $newBalance)) {
                     // Cập nhật số lượng sản phẩm
                     if ($this->model->updateProductQuantity($productId, $newQuantity)) {
-                        echo "Mua hàng thành công.";
+                        echo '<script>Swal.fire("Mua hàng thành công", "", "success");</script>';
                     } else {
-                        echo "Lỗi khi cập nhật số lượng sản phẩm.";
+                        $errors[] = 'Lỗi khi cập nhật số lượng sản phẩm';
                     }
                 } else {
-                    echo "Lỗi khi cập nhật số dư người dùng.";
+                    $errors[] = 'Lỗi khi cập nhật số dư người dùng';
                 }
             }
         } else {
-            echo "Số dư không đủ để mua sản phẩm.";
+            $errors[] = 'Số dư không đủ để mua hàng';
         }
+    }
+
+    // Hiển thị thông báo lỗi bằng Sweet Alert 2
+    if (!empty($errors)) {
+        echo '<script>';
+        echo 'Swal.fire({';
+        echo '    title: "Lỗi",';
+        echo '    html: "' . implode("<br>", $errors) . '",';
+        echo '    icon: "error"';
+        echo '}).then(function() {';
+            echo '    window.location.href = "' . ROOT_URL . 'danhmuc?type_id=' . $typeId . '";';
+            // Thay ' =' bằng ' . ROOT_URL
+        echo '});';
+        echo '</script>';
     }
 }
 
+
+
+    // public function muahang() {
+    //     if (!isset($_SESSION['user_id'])) {
+    //         echo "Vui lòng đăng nhập để mua hàng.";
+    //         return;
+    //     }
+
+    //     $userId = $_SESSION['user_id'];
+    //     $productId = $_GET['id'];
+
+    //     // Lấy giá sản phẩm từ cơ sở dữ liệu
+    //     $productPrice = $this->model->getProductPrice($productId);
+
+    //     $userBalance = $this->model->checkUserBalance($userId, $productPrice);
+
+    //     if ($userBalance) {
+    //         $newBalance = $userBalance - $productPrice;
+
+    //         // Tính toán số lượng sản phẩm mới, ví dụ: giảm 1 sản phẩm sau mỗi lần mua
+    //         $currentQuantity = $this->model->getCurrentProductQuantity($productId);
+    //         $newQuantity = $currentQuantity - 1;
+
+    //         // Kiểm tra số lượng sản phẩm
+    //         if ($newQuantity <= 0) {
+    //             echo "Hết hàng";
+    //         } else {
+    //             // Cập nhật số dư người dùng
+    //             if ($this->model->updateBalance($userId, $newBalance)) {
+    //                 // Cập nhật số lượng sản phẩm
+    //                 if ($this->model->updateProductQuantity($productId, $newQuantity)) {
+    //                     echo "Mua hàng thành công.";
+    //                 } else {
+    //                     echo "Lỗi khi cập nhật số lượng sản phẩm.";
+    //                 }
+    //             } else {
+    //                 echo "Lỗi khi cập nhật số dư người dùng.";
+    //             }
+    //         }
+    //     } else {
+    //         echo "Số dư không đủ để mua sản phẩm.";
+    //     }
+    // }
+}

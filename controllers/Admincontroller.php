@@ -176,6 +176,68 @@ class AdminController
 
         include "admin/views/layout.php";
     }
-}
+
+    // Thêm tài khoản
+    function addtaikhoan(){
+        $titlePage = "Thêm tài khoản";
+        $viewnoidung = "addTaikhoan.php";
+        $accountDetailModel = $this->model->getAllaccounts();
+        include "admin/views/layout.php";
+
+
+    }
+
+    function addtaikhoan_(){
+        $account_id = trim(strip_tags($_POST["account_id"]));
+        $username = trim(strip_tags($_POST["username"]));
+        $password = trim(strip_tags($_POST["password"]));
+
+        // lấy thônt tin tài khoản chính từ table accounts
+        if( empty($username) || empty($password)){
+            echo"Vui lòng nhập thông tin đầy đủ";
+        }else{
+            $accountDetailModel = $this->model->addAccountDetail($account_id, $username, $password);
+            if($accountDetailModel){
+                echo "Thêm thành công";
+            }else{
+                echo "Thêm thất bại";
+            }
+        }
+
+        
+    }
+    function dstaikhoan(){
+        $titlePage = "Danh sách tài khoản";
+        $viewnoidung = "dsTaikhoan.php";
+        $lisAccounts = $this->model->getAllTaikhoan();
+        include "admin/views/layout.php";
+    }
+
+    function edittaikhoan() {
+        $detail_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        $dstk = $this->model->getIdtaikhoan($detail_id);
+        $accountDetailModel = $this->model->getAllaccounts();
+
+        $titlePage = "Sửa tài khoản";
+        $viewnoidung = "editTaikhoan.php";
+        include "admin/views/layout.php";
+    }
+    
+    function edittaikhoan_() {
+        $detail_id = (int)($_POST["detail_id"]);
+        $username = trim(strip_tags($_POST["username"]));
+        $password = trim(strip_tags($_POST["password"]));
+        $account_id = (int)($_POST["account_id"]);
+    
+        $result = $this->model->editTaikhoan($detail_id, $username, $password, $account_id);
+        if ($result !== false) {
+            echo "Sửa thành công";
+        } else {
+            echo "Sửa thất bại";
+        }
+    }
+    
+    }
+
 
 ?>

@@ -22,15 +22,17 @@ class sanpham
         $query = "SELECT * FROM accounttypes where anhien = 1 ORDER BY thutu";
         return $this->conn->select($query);
     }
-    function getidLoai($type_id){
+    function getidLoai($type_id)
+    {
         $query = "SELECT * FROM accounttypes where type_id = :type_id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindValue(':type_id', $type_id);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    
-    function editLoai($type_id, $type_name, $description, $anhien, $thutu){
+
+    function editLoai($type_id, $type_name, $description, $anhien, $thutu)
+    {
         $query = "UPDATE accounttypes SET type_name = :type_name, description = :description, anhien =:anhien, thutu = :thutu WHERE type_id = :type_id";
         $params = array(
             ':type_id' => $type_id,
@@ -41,7 +43,8 @@ class sanpham
         );
         return $this->conn->update($query, $params);
     }
-    function deleteloai($type_id){
+    function deleteloai($type_id)
+    {
         $query = "DELETE from accounttypes where type_id =:type_id ";
         $params = array(
             ':type_id' => $type_id,
@@ -80,7 +83,8 @@ class sanpham
         $query = "SELECT * FROM accounts";
         return $this->conn->select($query);
     }
-    function getAccountByid($account_id){
+    function getAccountByid($account_id)
+    {
         $query = "SELECT * FROM accounts where account_id = :account_id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':account_id', $account_id, PDO::PARAM_INT);
@@ -88,22 +92,23 @@ class sanpham
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function selectByTypeId($type_id) {
+    public function selectByTypeId($type_id)
+    {
         $query = "SELECT * FROM accounts WHERE account_type_id = :type_id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindValue(':type_id', $type_id, PDO::PARAM_INT);
-        
+
         if ($stmt->execute()) {
             // Kiểm tra xem có bất kỳ sản phẩm nào được trả về không
             if ($stmt->rowCount() > 0) {
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
         }
-    
+
         // Trường hợp không có sản phẩm nào được tìm thấy hoặc có lỗi trong quá trình thực hiện truy vấn
         return [];
     }
-    
+
     // lấy tên loại theo id
     function getTypeNameById($type_id)
     {
@@ -112,14 +117,61 @@ class sanpham
         $stmt->bindParam(':type_id', $type_id, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         if ($result) {
             return $result['type_name'];
         } else {
             return "Loại không tồn tại"; // Hoặc giá trị mặc định khác tùy bạn
         }
     }
-    
-    
-    
+
+    // lấy account theo id accounts
+    function getAccountInfo($account_id)
+    {
+        $query = "SELECT * from accounts where account_id =:account_id  ";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":account_id ", $account_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Thêm tài khoản 
+    function addAccountDetail($account_id, $username, $password)
+    {
+        $query = "INSERT INTO account_details  set account_id =:account_id, username =:username, password = :password ";
+        $params = array(
+            ":account_id" => $account_id,
+            "username" => $username,
+            "password" => $password,
+        );
+        return $this->conn->insert($query, $params);
+    }
+    // danh sách tài khoản
+    function getAllTaikhoan()
+    {
+        $query = "SELECT * FROM account_details";
+        return $this->conn->select($query);
+    }
+
+    // Edit tài khoản
+    function getIdtaikhoan($account_id)
+    {
+        $query = "SELECT * from account_details where detail_id  = :detail_id ";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":detail_id", $account_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function editTaikhoan($detail_id, $username, $password, $account_id)
+    {
+        $query = "UPDATE account_details SET username = :username, password = :password, account_id = :account_id WHERE detail_id = :detail_id";
+        $params = array(
+            ":detail_id" => $detail_id,
+            ":username" => $username,
+            ":password" => $password,
+            ":account_id" => $account_id
+        );
+        return $this->conn->update($query, $params);
+    }
 }
