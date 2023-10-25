@@ -131,34 +131,38 @@ class AdminController
 
     function addAccount_()
     {
-        // Lấy thông tin từ form
-        $accountDetails = array(
-            'name' => trim(strip_tags($_POST['name'])),
-            'description' => trim(strip_tags($_POST['noidung'])),
-            'quantity_available' => trim(strip_tags($_POST['soluong'])),
-            'original_price' => trim(strip_tags($_POST['giagoc'])),
-            'discounted_price' => trim(strip_tags($_POST['giagiam'])),
-            'min_friends_count' => trim(strip_tags($_POST['banbemin'])),
-            'max_friends_count' => trim(strip_tags($_POST['banbemax'])),
-            'country' => trim(strip_tags($_POST['quocgia'])),
-            'xmdt_status' => trim(strip_tags($_POST['xmdt_status'])),
-            'backup_available' => trim(strip_tags($_POST['backup_available'])),
-            'twofa_available' => trim(strip_tags($_POST['twofa_available'])),
-            'email_available' => trim(strip_tags($_POST['email_available'])),
-            'cp_via_email' => trim(strip_tags($_POST['email_cp'])),
-            'min_created_year' => trim(strip_tags($_POST['yearmin'])),
-            'max_created_year' => trim(strip_tags($_POST['yearmax'])),
-            'account_type_id' => trim(strip_tags($_POST['account_type'])),
-            'image_url' => trim(strip_tags($_POST['image_url']))
-        );
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Lấy thông tin từ form
+            $accountDetails = array(
+                'name' => trim(strip_tags($_POST['name'])),
+                'description' => trim(strip_tags($_POST['noidung'])),
+                'quantity_available' => trim(strip_tags($_POST['soluong'])),
+                'original_price' => trim(strip_tags($_POST['giagoc'])),
+                'discounted_price' => trim(strip_tags($_POST['giagiam'])),
+                'min_friends_count' => trim(strip_tags($_POST['banbemin'])),
+                'country' => trim(strip_tags($_POST['quocgia'])),
+                'xmdt_status' => trim(strip_tags($_POST['xmdt_status'])),
+                'backup_available' => trim(strip_tags($_POST['backup_available'])),
+                'twofa_available' => trim(strip_tags($_POST['twofa_available'])),
+                'email_available' => trim(strip_tags($_POST['email_available'])),
+                'cp_via_email' => trim(strip_tags($_POST['email_cp'])),
+                'min_created_year' => trim(strip_tags($_POST['yearmin'])),
+                'account_type_id' => trim(strip_tags($_POST['account_type'])),
+            );
 
-        // Kiểm tra dữ liệu
-        if (empty($accountDetails['name']) || empty($accountDetails['description'])) {
-            $message = "Vui lòng nhập đủ thông tin";
-        } else {
-            // Thêm tài khoản
-            $them = $this->model->addAccount($accountDetails);
-            $message = $them ? "Thêm tài khoản thành công" : "Thêm thất bại";
+            // Kiểm tra dữ liệu
+            if (empty($accountDetails['name']) || empty($accountDetails['description'])) {
+                $message = "Vui lòng nhập đủ thông tin";
+            } else {
+                $imagePath = $this->uploadImage();
+                if ($imagePath !== false) {
+                    $accountDetails['image_url'] = $imagePath;
+                    $them = $this->model->addAccount($accountDetails);
+                    $message = $them ? "Thêm tài khoản thành công" : "Thêm thất bại";
+                } else {
+                    $message = "Lỗi khi tải lên hình ảnh";
+                }
+            }
         }
 
         // Tiếp tục phần còn lại của hàm
@@ -167,6 +171,20 @@ class AdminController
         $accountTypes = $this->model->getAllloai();
         include "admin/views/layout.php";
     }
+
+    function uploadImage()
+    {
+        if (isset($_FILES['image_url']) && $_FILES['image_url']['error'] === UPLOAD_ERR_OK) {
+            $targetDir = "uploads/";
+            $targetFile = $targetDir . basename($_FILES['image_url']['name']);
+
+            if (move_uploaded_file($_FILES['image_url']['tmp_name'], $targetFile)) {
+                return $targetFile;
+            }
+        }
+        return false;
+    }
+
 
 
     function login()
@@ -178,42 +196,42 @@ class AdminController
     }
 
     // Thêm tài khoản
-    function addtaikhoan(){
+    function addtaikhoan()
+    {
         $titlePage = "Thêm tài khoản";
         $viewnoidung = "addTaikhoan.php";
         $accountDetailModel = $this->model->getAllaccounts();
         include "admin/views/layout.php";
-
-
     }
 
-    function addtaikhoan_(){
+    function addtaikhoan_()
+    {
         $account_id = trim(strip_tags($_POST["account_id"]));
         $username = trim(strip_tags($_POST["username"]));
         $password = trim(strip_tags($_POST["password"]));
 
         // lấy thônt tin tài khoản chính từ table accounts
-        if( empty($username) || empty($password)){
-            echo"Vui lòng nhập thông tin đầy đủ";
-        }else{
+        if (empty($username) || empty($password)) {
+            echo "Vui lòng nhập thông tin đầy đủ";
+        } else {
             $accountDetailModel = $this->model->addAccountDetail($account_id, $username, $password);
-            if($accountDetailModel){
+            if ($accountDetailModel) {
                 echo "Thêm thành công";
-            }else{
+            } else {
                 echo "Thêm thất bại";
             }
         }
-
-        
     }
-    function dstaikhoan(){
+    function dstaikhoan()
+    {
         $titlePage = "Danh sách tài khoản";
         $viewnoidung = "dsTaikhoan.php";
         $lisAccounts = $this->model->getAllTaikhoan();
         include "admin/views/layout.php";
     }
 
-    function edittaikhoan() {
+    function edittaikhoan()
+    {
         $detail_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
         $dstk = $this->model->getIdtaikhoan($detail_id);
         $accountDetailModel = $this->model->getAllaccounts();
@@ -222,13 +240,14 @@ class AdminController
         $viewnoidung = "editTaikhoan.php";
         include "admin/views/layout.php";
     }
-    
-    function edittaikhoan_() {
+
+    function edittaikhoan_()
+    {
         $detail_id = (int)($_POST["detail_id"]);
         $username = trim(strip_tags($_POST["username"]));
         $password = trim(strip_tags($_POST["password"]));
         $account_id = (int)($_POST["account_id"]);
-    
+
         $result = $this->model->editTaikhoan($detail_id, $username, $password, $account_id);
         if ($result !== false) {
             echo "Sửa thành công";
@@ -236,8 +255,7 @@ class AdminController
             echo "Sửa thất bại";
         }
     }
-    
-    }
+}
 
 
 ?>

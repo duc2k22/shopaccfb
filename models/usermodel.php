@@ -163,13 +163,15 @@ class usermodel
     }
 
     // cập nhật số lượng sản phẩm sau khi mua hàng
-    function updateProductQuantity($productId, $newQuantity){
+    function updateProductQuantity($productId, $newQuantity)
+    {
         $query = "UPDATE accounts set quantity_available = :quantity_available where account_id = :account_id";
-        $params = array(":account_id"=> $productId,":quantity_available"=> $newQuantity);
+        $params = array(":account_id" => $productId, ":quantity_available" => $newQuantity);
         return $this->conn->update($query, $params);
     }
 
-    function getTypeIdForProduct($productId) {
+    function getTypeIdForProduct($productId)
+    {
 
         // Viết truy vấn SQL để lấy type_id dựa trên $productId
         $query = "SELECT account_type_id FROM accounts WHERE account_id = :product_id";
@@ -188,17 +190,59 @@ class usermodel
         }
     }
 
-    function getProductInfo($accountId) {
+    function getProductInfo($accountId)
+    {
         $query = 'SELECT name, description, original_price FROM accounts WHERE account_id = :account_id';
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':account_id', $accountId, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
         if ($result !== false) {
             return $result;
         }
         return false;
     }
-    
+
+    // Hàm lấy một tài khoản ngẫu nhiên chưa bán
+public function selectRandomUnsoldAccount($productId) {
+    $query = "SELECT detail_id FROM account_details WHERE account_id = :account_id AND sold_status = 0 ORDER BY RAND() LIMIT 1";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':account_id', $productId, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($result) {
+        return $result['detail_id'];
+    } else {
+        return null;
+    }
+}
+
+
+    // Hàm cập nhật trạng thái đã bán của tài khoản
+    public function updateAccountSoldStatus($detail_id) {
+        $query = "UPDATE account_details SET sold_status = 1 WHERE detail_id = :detail_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':detail_id', $detail_id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    // Hàm lấy thông tin tài khoản dựa trên detail_id
+    public function getAccountDetails($detail_id) {
+        $query = "SELECT * FROM account_details WHERE detail_id = :detail_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':detail_id', $detail_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $account = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $account;
+    }
+    public function addPurchaseHistory($userId, $accountId) {
+        $query = "INSERT INTO lichsumuahang (user_id, account_id, purchase_date) VALUES (:user_id, :account_id, NOW())";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->bindParam(':account_id', $accountId, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }

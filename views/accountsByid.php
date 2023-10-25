@@ -54,7 +54,7 @@
                             <i class="fa-solid fa-cart-plus"></i>
                         </a>
                   <?php } ?>
-                  <a href="#" class="btn-product" onclick="muahang(<?= $lissacc['account_id'] ?>)">Mua hàng</a>
+                  <a href="<?= ROOT_URL . 'muahang?id=' . $lissacc['account_id'] ?>" class="btn-product">Mua hàng</a>
 
 
 
@@ -64,71 +64,5 @@
 
     </div>
 </section>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const buyButtons = document.querySelectorAll('.btn-product');
 
-        buyButtons.forEach(button => {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
-                const productId = this.getAttribute('data-product-id');
-                muahang(productId);
-            });
-        });
-
-        function muahang(productId) {
-            Swal.fire({
-                title: 'Nhập số lượng',
-                input: 'number',
-                inputAttributes: {
-                    min: 1
-                },
-                showCancelButton: true,
-                confirmButtonText: 'Mua',
-                cancelButtonText: 'Hủy',
-                inputValidator: (value) => {
-                    if (!value) {
-                        return 'Bạn phải nhập số lượng';
-                    }
-                    if (isNaN(value) || value <= 0) {
-                        return 'Số lượng không hợp lệ';
-                    }
-                    // Thực hiện Ajax request để mua hàng
-                    $.ajax({
-                        url: 'muahangg',
-                        type: 'GET',
-                        data: {
-                            productId: productId,
-                            quantity: value
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                Swal.fire({
-                                    title: 'Mua hàng thành công',
-                                    text: 'Bạn đã mua hàng thành công!',
-                                    icon: 'success'
-                                }).then(function() {
-                                    // Tùy chỉnh hành động sau khi mua hàng thành công
-                                });
-                            } else {
-                                Swal.fire({
-                                    title: 'Lỗi',
-                                    text: response.message,
-                                    icon: 'error'
-                                });
-                            }
-                        },
-                        error: function() {
-                            Swal.fire({
-                                title: 'Lỗi',
-                                text: 'Có lỗi xảy ra khi thực hiện mua hàng',
-                                icon: 'error'
-                            });
-                        }
-                    });
-                }
-            });
-        }
-    });
-</script>
 

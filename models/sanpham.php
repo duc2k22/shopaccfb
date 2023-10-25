@@ -55,8 +55,8 @@ class sanpham
     function addAccount($accountDetails)
     {
         $query = "INSERT INTO accounts (name, description, quantity_available, original_price, discounted_price, 
-        min_friends_count, max_friends_count, country, xmdt_status, backup_available, twofa_available, email_available, 
-        min_created_year, max_created_year, cp_via_email, account_type_id, image_url) VALUES (:name, :description, :quantity_available, :original_price, :discounted_price, :min_friends_count, :max_friends_count, :country, :xmdt_status, :backup_available, :twofa_available, :email_available, :min_created_year, :max_created_year, :cp_via_email, :account_type_id, :image_url) ";
+        min_friends_count, country, xmdt_status, backup_available, twofa_available, email_available, 
+        min_created_year, cp_via_email, account_type_id, image_url) VALUES (:name, :description, :quantity_available, :original_price, :discounted_price, :min_friends_count, :country, :xmdt_status, :backup_available, :twofa_available, :email_available, :min_created_year, :cp_via_email, :account_type_id, :image_url) ";
         $params = array(
             ':name' => $accountDetails['name'],
             ':description' => $accountDetails['description'],
@@ -64,14 +64,12 @@ class sanpham
             ':original_price' => $accountDetails['original_price'],
             ':discounted_price' => $accountDetails['discounted_price'],
             ':min_friends_count' => $accountDetails['min_friends_count'],
-            ':max_friends_count' => $accountDetails['max_friends_count'],
             ':country' => $accountDetails['country'],
             ':xmdt_status' => $accountDetails['xmdt_status'],
             ':backup_available' => $accountDetails['backup_available'],
             ':twofa_available' => $accountDetails['twofa_available'],
             ':email_available' => $accountDetails['email_available'],
             ':min_created_year' => $accountDetails['min_created_year'],
-            ':max_created_year' => $accountDetails['max_created_year'],
             ':cp_via_email' => $accountDetails['cp_via_email'],
             ':account_type_id' => $accountDetails['account_type_id'],
             ':image_url' => $accountDetails['image_url'],

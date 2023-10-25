@@ -87,6 +87,8 @@ class UserController
 
             if ($user && password_verify($password, $user['password'])) {
                 // Đăng nhập thành công
+                $_SESSION['user_id'] = $user['user_id'];
+
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['role'] = $user['role'];
@@ -110,23 +112,18 @@ class UserController
         }
     }
 
-    public function muahang()
-    {
-        if (!isset($_SESSION['user_id'])) {
-            $response = [
-                'success' => false,
-                'message' => 'Vui lòng đăng nhập để mua hàng'
-            ];
-            echo json_encode($response);
-            exit;
-        }
+    function muahang()
+{
+    $titlePage = 'Mua hàng';
+    include 'views/muahang.php';
+    $errors = array(); // Tạo mảng lưu thông báo lỗi
+    $productId = $_GET['id'];
+    $typeId = $this->model->getTypeIdForProduct($productId); // Lấy typeId
 
+    if (!isset($_SESSION['user_id'])) {
+        $errors[] = 'Vui lòng đăng nhập để mua hàng';
+    } else {
         $userId = $_SESSION['user_id'];
-        $productId = $_GET['productId']; // Lấy productId từ yêu cầu GET
-        $quantity = 1; // Số lượng muốn mua
-
-        // Thực hiện kiểm tra số dư, lấy giá sản phẩm, và kiểm tra số lượng sản phẩm
-        // Đồng thời, cập nhật số dư và số lượng sản phẩm nếu hợp lệ
 
         // Lấy giá sản phẩm từ cơ sở dữ liệu
         $productPrice = $this->model->getProductPrice($productId);
@@ -135,47 +132,48 @@ class UserController
         $userBalance = $this->model->checkUserBalance($userId, $productPrice);
 
         if ($userBalance !== false) {
-            $newBalance = $userBalance - ($productPrice * $quantity); // Tính toán số dư mới
+            $newBalance = $userBalance - $productPrice;
 
-            // Lấy số lượng sản phẩm hiện tại
-            $currentQuantity = $this->model->getCurrentProductQuantity($productId);
+            // Lấy detail_id của tài khoản mà người dùng đã mua
+            $detail_id = $this->model->selectRandomUnsoldAccount($productId);
 
-            // Kiểm tra số lượng sản phẩm còn lại
-            if ($currentQuantity >= $quantity) { // Kiểm tra số lượng còn đủ để mua
-                $newQuantity = $currentQuantity - $quantity; // Tính toán số lượng mới
+            if ($detail_id) {
+                // Cập nhật trạng thái đã bán của tài khoản
+                $this->model->updateAccountSoldStatus($detail_id);
+                // Lấy thông tin tài khoản
+                $accountDetails = $this->model->getAccountDetails($detail_id);
 
-                // Cập nhật số dư người dùng
-                if ($this->model->updateBalance($userId, $newBalance)) {
-                    // Cập nhật số lượng sản phẩm
-                    if ($this->model->updateProductQuantity($productId, $newQuantity)) {
-                        // Mua hàng thành công
-                        $response = [
-                            'success' => true,
-                            'message' => 'Mua hàng thành công'
-                        ];
-                        echo json_encode($response);
-                        exit;
-                    } else {
-                        $errors[] = 'Lỗi khi cập nhật số lượng sản phẩm';
+                if ($accountDetails) {
+                    // Trả về thông tin tài khoản đã mua
+                    echo '<script>Swal.fire("Mua hàng thành công", "Thông tin tài khoản: ' . $accountDetails['username'] . ' - Mật khẩu: ' . $accountDetails['password'] . '", "success");</script>';
+
+                    // Sau khi mua thành công, cập nhật lịch sử mua hàng
+                    $purchaseSuccess = $this->model->addPurchaseHistory($userId, $detail_id);
+                    if (!$purchaseSuccess) {
+                        $errors[] = 'Lỗi khi cập nhật lịch sử mua hàng';
                     }
+                } else {
+                    $errors[] = 'Lỗi khi lấy thông tin tài khoản đã mua';
+                }
+            } else {
+                $errors[] = 'Không có tài khoản nào còn trống để mua';
+            }
+
+            if (empty($errors)) {
+                if ($this->model->updateBalance($userId, $newBalance)) {
+                    // Tiếp tục xử lý
                 } else {
                     $errors[] = 'Lỗi khi cập nhật số dư người dùng';
                 }
-            } else {
-                $errors[] = 'Số lượng sản phẩm không đủ';
             }
         } else {
             $errors[] = 'Số dư không đủ để mua hàng';
         }
-
-        // Xử lý lỗi và trả về thông báo lỗi
-        $response = [
-            'success' => false,
-            'message' => 'Lỗi: ' . implode(', ', $errors)
-        ];
-        echo json_encode($response);
-        exit;
     }
+}
+
+
+
 
 
 
