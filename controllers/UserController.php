@@ -109,20 +109,24 @@ class UserController
             }
         }
     }
-     
-    // Mua Mua hàng
-    function muahang()
-{
-    $titlePage = 'Mua hàng';
-    include 'views/muahang.php';
-    $errors = array(); // Tạo mảng lưu thông báo lỗi
 
-    if (!isset($_SESSION['user_id'])) {
-        $errors[] = 'Vui lòng đăng nhập để mua hàng';
-    } else {
+    public function muahang()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            $response = [
+                'success' => false,
+                'message' => 'Vui lòng đăng nhập để mua hàng'
+            ];
+            echo json_encode($response);
+            exit;
+        }
+
         $userId = $_SESSION['user_id'];
-        $productId = $_GET['id'];
-        $typeId = $this->model->getTypeIdForProduct($productId); // Lấy typeId
+        $productId = $_GET['productId']; // Lấy productId từ yêu cầu GET
+        $quantity = 1; // Số lượng muốn mua
+
+        // Thực hiện kiểm tra số dư, lấy giá sản phẩm, và kiểm tra số lượng sản phẩm
+        // Đồng thời, cập nhật số dư và số lượng sản phẩm nếu hợp lệ
 
         // Lấy giá sản phẩm từ cơ sở dữ liệu
         $productPrice = $this->model->getProductPrice($productId);
@@ -131,93 +135,94 @@ class UserController
         $userBalance = $this->model->checkUserBalance($userId, $productPrice);
 
         if ($userBalance !== false) {
-            $newBalance = $userBalance - $productPrice;
+            $newBalance = $userBalance - ($productPrice * $quantity); // Tính toán số dư mới
 
             // Lấy số lượng sản phẩm hiện tại
             $currentQuantity = $this->model->getCurrentProductQuantity($productId);
-            $newQuantity = $currentQuantity - 1; // Giảm đi 1 sau mỗi lần mua
 
-            // Kiểm tra số lượng sản phẩm
-            if ($newQuantity <= 0) {
-                $errors[] = 'Hết hàng';
-            } else {
+            // Kiểm tra số lượng sản phẩm còn lại
+            if ($currentQuantity >= $quantity) { // Kiểm tra số lượng còn đủ để mua
+                $newQuantity = $currentQuantity - $quantity; // Tính toán số lượng mới
+
+                // Cập nhật số dư người dùng
                 if ($this->model->updateBalance($userId, $newBalance)) {
                     // Cập nhật số lượng sản phẩm
                     if ($this->model->updateProductQuantity($productId, $newQuantity)) {
-                        echo '<script>Swal.fire("Mua hàng thành công", "", "success");</script>';
+                        // Mua hàng thành công
+                        $response = [
+                            'success' => true,
+                            'message' => 'Mua hàng thành công'
+                        ];
+                        echo json_encode($response);
+                        exit;
                     } else {
                         $errors[] = 'Lỗi khi cập nhật số lượng sản phẩm';
                     }
                 } else {
                     $errors[] = 'Lỗi khi cập nhật số dư người dùng';
                 }
+            } else {
+                $errors[] = 'Số lượng sản phẩm không đủ';
             }
         } else {
             $errors[] = 'Số dư không đủ để mua hàng';
         }
+
+        // Xử lý lỗi và trả về thông báo lỗi
+        $response = [
+            'success' => false,
+            'message' => 'Lỗi: ' . implode(', ', $errors)
+        ];
+        echo json_encode($response);
+        exit;
     }
 
-    // Hiển thị thông báo lỗi bằng Sweet Alert 2
-    if (!empty($errors)) {
-        echo '<script>';
-        echo 'Swal.fire({';
-        echo '    title: "Lỗi",';
-        echo '    html: "' . implode("<br>", $errors) . '",';
-        echo '    icon: "error"';
-        echo '}).then(function() {';
-        echo '    window.location.href = "' . ROOT_URL . 'danhmuc' . $typeId . '";';
-            // Thay ' =' bằng ' . ROOT_URL
-        echo '});';
-        echo '</script>';
-    }
-}
 
 
+    //     public function muahang()
+    // {
+    //     // Kiểm tra xem người dùng đã đăng nhập hay chưa
+    //     if ($this->model->isUserLoggedIn()) {
+    //         // Lấy account_id và product_price từ URL thông qua $_GET
+    //         $accountId = $_GET['account_id'];
+    //         $productPrice = $_GET['product_price'];
 
-//     public function muahang()
-// {
-//     // Kiểm tra xem người dùng đã đăng nhập hay chưa
-//     if ($this->model->isUserLoggedIn()) {
-//         // Lấy account_id và product_price từ URL thông qua $_GET
-//         $accountId = $_GET['account_id'];
-//         $productPrice = $_GET['product_price'];
+    //         // Người dùng đã đăng nhập
+    //         $userId = $_SESSION['username'];
+    //         $userBalance = $this->model->getUserBalance($userId);
 
-//         // Người dùng đã đăng nhập
-//         $userId = $_SESSION['username'];
-//         $userBalance = $this->model->getUserBalance($userId);
-
-//         if ($userBalance >= $productPrice) {
-//             // Người dùng có đủ số dư để mua sản phẩm
-//             // Hiển thị thông báo xác nhận với SweetAlert2
-//             echo '<script>
-//             Swal.fire({
-//                 title: "Xác nhận mua sản phẩm",
-//                 text: "Bạn có chắc chắn muốn mua sản phẩm này với giá ' . $productPrice . '?",
-//                 icon: "question",
-//                 showCancelButton: true,
-//                 confirmButtonText: "Mua ngay",
-//                 cancelButtonText: "Hủy",
-//             }).then((result) => {
-//                 if (result.isConfirmed) {
-//                     // Thực hiện mua sản phẩm ở đây
-//                     // ...
-//                     // Để xử lý mua hàng, bạn có thể thêm dữ liệu vào CSDL hoặc thực hiện bất kỳ hành động nào cần thiết.
-//                 }
-//             });
-//         </script>';
-//         } else {
-//             // Người dùng không có đủ số dư
-//             echo '<script>
-//             Swal.fire("Lỗi", "Số dư tài khoản không đủ để mua sản phẩm", "error");
-//         </script>';
-//         }
-//     } else {
-//         // Người dùng chưa đăng nhập
-//         echo '<script>
-//         Swal.fire("Lỗi", "Vui lòng đăng nhập để mua sản phẩm", "error");
-//         </script>';
-//     }
-// }
+    //         if ($userBalance >= $productPrice) {
+    //             // Người dùng có đủ số dư để mua sản phẩm
+    //             // Hiển thị thông báo xác nhận với SweetAlert2
+    //             echo '<script>
+    //             Swal.fire({
+    //                 title: "Xác nhận mua sản phẩm",
+    //                 text: "Bạn có chắc chắn muốn mua sản phẩm này với giá ' . $productPrice . '?",
+    //                 icon: "question",
+    //                 showCancelButton: true,
+    //                 confirmButtonText: "Mua ngay",
+    //                 cancelButtonText: "Hủy",
+    //             }).then((result) => {
+    //                 if (result.isConfirmed) {
+    //                     // Thực hiện mua sản phẩm ở đây
+    //                     // ...
+    //                     // Để xử lý mua hàng, bạn có thể thêm dữ liệu vào CSDL hoặc thực hiện bất kỳ hành động nào cần thiết.
+    //                 }
+    //             });
+    //         </script>';
+    //         } else {
+    //             // Người dùng không có đủ số dư
+    //             echo '<script>
+    //             Swal.fire("Lỗi", "Số dư tài khoản không đủ để mua sản phẩm", "error");
+    //         </script>';
+    //         }
+    //     } else {
+    //         // Người dùng chưa đăng nhập
+    //         echo '<script>
+    //         Swal.fire("Lỗi", "Vui lòng đăng nhập để mua sản phẩm", "error");
+    //         </script>';
+    //     }
+    // }
 
 
 

@@ -49,6 +49,8 @@ $router =[
         // route USer
         'dangky' => [new UserController, 'dangky_'],
         'dangnhap' => [new UserController, 'dangnhap_'],
+        'muahang' =>  [new UserController, 'muahang'],
+
 
 
         'admin/addloai' => [new AdminController, 'addloai'],

@@ -187,4 +187,18 @@ class usermodel
             return false; // Trả về false nếu không tìm thấy type_id
         }
     }
+
+    function getProductInfo($accountId) {
+        $query = 'SELECT name, description, original_price FROM accounts WHERE account_id = :account_id';
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':account_id', $accountId, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($result !== false) {
+            return $result;
+        }
+        return false;
+    }
+    
 }
