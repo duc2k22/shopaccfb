@@ -154,10 +154,12 @@ class UserController
 
                     if ($accountInfo && $accountDetails) {
                         // Trả về thông tin tài khoản đã mua
+                        $soLuongMua = $_GET['soLuongMua'];
+                        $thanhToan = $productPrice * $soLuongMua; // Tính tổng thanh toán dựa trên số lượng mua và giá sản phẩm
                         echo '<script>Swal.fire("Mua hàng thành công", "Thông tin tài khoản: ' . $accountDetails['username'] . ' - Mật khẩu: ' . $accountDetails['password'] . '", "success");</script>';
 
                         // Sau khi mua thành công, cập nhật lịch sử mua hàng
-                        $purchaseSuccess = $this->model->addPurchaseHistory($userId, $productId, $detail_id);
+                        $purchaseSuccess = $this->model->addPurchaseHistory($userId, $productId, $detail_id, $soLuongMua, $thanhToan);
 
                         if (!$purchaseSuccess) {
                             $errors[] = 'Lỗi khi cập nhật lịch sử mua hàng';
@@ -194,6 +196,8 @@ class UserController
             echo '</script>';
         }
     }
+
+    
 
 
 
@@ -245,6 +249,9 @@ class UserController
     //     }
     // }
 
+
+
+    
 
 
 }

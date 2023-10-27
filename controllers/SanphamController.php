@@ -148,4 +148,21 @@ class SanphamController
         $_SESSION['cart'] = $cart;
         header('Location:' . ROOT_URL . 'giohang');
     }
+
+    function taikhoan(){
+
+        $accounType = $this->model->getAllloai();
+        $isDanhMucPage = true;
+        $titlePage = "Tài khoản";
+        $viewnoidung = "views/taikhoan/info-account.php";
+        include "./views/taikhoan/layout.php";
+    }
+
+    function lichsugiaodich(){
+        $accounType = $this->model->getAllloai();
+        $isDanhMucPage = true;
+        $titlePage = "Lịch sử giao dịch";
+        $viewnoidung = "views/taikhoan/lichsugiaodich.php";
+        include "./views/taikhoan/layout.php";
+    }
 }

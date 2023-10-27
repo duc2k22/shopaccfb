@@ -241,23 +241,28 @@ class usermodel
 
         return $account;
     }
-    public function addPurchaseHistory($user_id, $account_id, $account_detail_id)
-    {
-        $query = "INSERT INTO lichsumuahang (user_id, account_id, account_detail_id, purchase_date) VALUES (:user_id, :account_id, :account_detail_id, NOW())";
+    public function addPurchaseHistory($user_id, $account_id, $account_detail_id, $soLuongMua, $thanhToan)
+{
+    $query = "INSERT INTO lichsumuahang (user_id, account_id, account_detail_id, purchase_date, so_luong_mua, thanh_toan) VALUES (:user_id, :account_id, :account_detail_id, NOW(), :soLuongMua, :thanhToan)";
 
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':user_id', $user_id);
-        $stmt->bindParam(':account_id', $account_id);
-        $stmt->bindParam(':account_detail_id', $account_detail_id);
 
-        if ($stmt->execute()) {
-            // Thực hiện thành công
-            return true;
-        } else {
-            // Xảy ra lỗi khi thực hiện
-            return false;
-        }
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->bindParam(':account_id', $account_id);
+    $stmt->bindParam(':account_detail_id', $account_detail_id);
+    $stmt->bindParam(':soLuongMua', $soLuongMua);
+    $stmt->bindParam(':thanhToan', $thanhToan);
+
+    if ($stmt->execute()) {
+        // Thực hiện thành công
+        return true;
+    } else {
+        // Xảy ra lỗi khi thực hiện
+        return false;
     }
+}
+
+    
 
     public function getAccountDetailsById($account_id)
     {

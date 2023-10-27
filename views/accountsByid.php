@@ -54,7 +54,7 @@
                             <i class="fa-solid fa-cart-plus"></i>
                         </a>
                   <?php } ?>
-                  <a href="<?= ROOT_URL . 'muahang?id=' . $lissacc['account_id'] ?>" class="btn-product">Mua hàng</a>
+                  <a href="<?= ROOT_URL . 'muahang?id=' . $lissacc['account_id'] . '&soLuongMua=1&thanhToan=' . $lissacc['discounted_price'] ?>" class="btn-product">Mua hàng</a>
 
 
 
