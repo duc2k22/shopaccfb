@@ -205,23 +205,25 @@ class usermodel
     }
 
     // Hàm lấy một tài khoản ngẫu nhiên chưa bán
-public function selectRandomUnsoldAccount($productId) {
-    $query = "SELECT detail_id FROM account_details WHERE account_id = :account_id AND sold_status = 0 ORDER BY RAND() LIMIT 1";
-    $stmt = $this->conn->prepare($query);
-    $stmt->bindParam(':account_id', $productId, PDO::PARAM_INT);
-    $stmt->execute();
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    public function selectRandomUnsoldAccount($productId)
+    {
+        $query = "SELECT detail_id FROM account_details WHERE account_id = :account_id AND sold_status = 0 ORDER BY RAND() LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':account_id', $productId, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($result) {
-        return $result['detail_id'];
-    } else {
-        return null;
+        if ($result) {
+            return $result['detail_id'];
+        } else {
+            return null;
+        }
     }
-}
 
 
     // Hàm cập nhật trạng thái đã bán của tài khoản
-    public function updateAccountSoldStatus($detail_id) {
+    public function updateAccountSoldStatus($detail_id)
+    {
         $query = "UPDATE account_details SET sold_status = 1 WHERE detail_id = :detail_id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':detail_id', $detail_id, PDO::PARAM_INT);
@@ -229,7 +231,8 @@ public function selectRandomUnsoldAccount($productId) {
     }
 
     // Hàm lấy thông tin tài khoản dựa trên detail_id
-    public function getAccountDetails($detail_id) {
+    public function getAccountDetails($detail_id)
+    {
         $query = "SELECT * FROM account_details WHERE detail_id = :detail_id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':detail_id', $detail_id, PDO::PARAM_INT);
@@ -238,11 +241,34 @@ public function selectRandomUnsoldAccount($productId) {
 
         return $account;
     }
-    public function addPurchaseHistory($userId, $accountId) {
-        $query = "INSERT INTO lichsumuahang (user_id, account_id, purchase_date) VALUES (:user_id, :account_id, NOW())";
+    public function addPurchaseHistory($user_id, $account_id, $account_detail_id)
+    {
+        $query = "INSERT INTO lichsumuahang (user_id, account_id, account_detail_id, purchase_date) VALUES (:user_id, :account_id, :account_detail_id, NOW())";
+
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $stmt->bindParam(':account_id', $accountId, PDO::PARAM_INT);
-        return $stmt->execute();
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':account_id', $account_id);
+        $stmt->bindParam(':account_detail_id', $account_detail_id);
+
+        if ($stmt->execute()) {
+            // Thực hiện thành công
+            return true;
+        } else {
+            // Xảy ra lỗi khi thực hiện
+            return false;
+        }
+    }
+
+    public function getAccountDetailsById($account_id)
+    {
+        $query = "SELECT * FROM accounts WHERE account_id = :account_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':account_id', $account_id);
+
+        if ($stmt->execute()) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }
     }
 }

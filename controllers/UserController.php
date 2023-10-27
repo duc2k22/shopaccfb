@@ -113,64 +113,87 @@ class UserController
     }
 
     function muahang()
-{
-    $titlePage = 'Mua hàng';
-    include 'views/muahang.php';
-    $errors = array(); // Tạo mảng lưu thông báo lỗi
-    $productId = $_GET['id'];
-    $typeId = $this->model->getTypeIdForProduct($productId); // Lấy typeId
+    {
+        $titlePage = 'Mua hàng';
+        include 'views/muahang.php';
+        $errors = array(); // Tạo mảng lưu thông báo lỗi
+        $productId = $_GET['id'];
+        $typeId = $this->model->getTypeIdForProduct($productId); // Lấy typeId
 
-    if (!isset($_SESSION['user_id'])) {
-        $errors[] = 'Vui lòng đăng nhập để mua hàng';
-    } else {
-        $userId = $_SESSION['user_id'];
+        if (!isset($_SESSION['user_id'])) {
+            echo '<script>';
+            echo 'Swal.fire({';
+            echo '    title: "Lỗi",';
+            echo '    text: "Vui lòng đăng nhập để mua hàng",';
+            echo '    icon: "error"';
+            echo '}).then(function() {';
+            echo '    window.location.href = "' . ROOT_URL . 'dangnhap";';
+            echo '});';
+            echo '</script>';
+        } else {
+            $userId = $_SESSION['user_id'];
 
-        // Lấy giá sản phẩm từ cơ sở dữ liệu
-        $productPrice = $this->model->getProductPrice($productId);
+            // Lấy giá sản phẩm từ cơ sở dữ liệu
+            $productPrice = $this->model->getProductPrice($productId);
 
-        // Kiểm tra số dư người dùng
-        $userBalance = $this->model->checkUserBalance($userId, $productPrice);
+            // Kiểm tra số dư người dùng
+            $userBalance = $this->model->checkUserBalance($userId, $productPrice);
 
-        if ($userBalance !== false) {
-            $newBalance = $userBalance - $productPrice;
+            if ($userBalance !== false) {
+                $newBalance = $userBalance - $productPrice;
 
-            // Lấy detail_id của tài khoản mà người dùng đã mua
-            $detail_id = $this->model->selectRandomUnsoldAccount($productId);
+                // Lấy detail_id của tài khoản mà người dùng đã mua
+                $detail_id = $this->model->selectRandomUnsoldAccount($productId);
 
-            if ($detail_id) {
-                // Cập nhật trạng thái đã bán của tài khoản
-                $this->model->updateAccountSoldStatus($detail_id);
-                // Lấy thông tin tài khoản
-                $accountDetails = $this->model->getAccountDetails($detail_id);
+                if ($detail_id) {
+                    // Cập nhật trạng thái đã bán của tài khoản
+                    $this->model->updateAccountSoldStatus($detail_id);
+                    // Lấy thông tin tài khoản từ cả hai bảng
+                    $accountInfo = $this->model->getAccountDetailsById($productId);
+                    $accountDetails = $this->model->getAccountDetails($detail_id);
 
-                if ($accountDetails) {
-                    // Trả về thông tin tài khoản đã mua
-                    echo '<script>Swal.fire("Mua hàng thành công", "Thông tin tài khoản: ' . $accountDetails['username'] . ' - Mật khẩu: ' . $accountDetails['password'] . '", "success");</script>';
+                    if ($accountInfo && $accountDetails) {
+                        // Trả về thông tin tài khoản đã mua
+                        echo '<script>Swal.fire("Mua hàng thành công", "Thông tin tài khoản: ' . $accountDetails['username'] . ' - Mật khẩu: ' . $accountDetails['password'] . '", "success");</script>';
 
-                    // Sau khi mua thành công, cập nhật lịch sử mua hàng
-                    $purchaseSuccess = $this->model->addPurchaseHistory($userId, $detail_id);
-                    if (!$purchaseSuccess) {
-                        $errors[] = 'Lỗi khi cập nhật lịch sử mua hàng';
+                        // Sau khi mua thành công, cập nhật lịch sử mua hàng
+                        $purchaseSuccess = $this->model->addPurchaseHistory($userId, $productId, $detail_id);
+
+                        if (!$purchaseSuccess) {
+                            $errors[] = 'Lỗi khi cập nhật lịch sử mua hàng';
+                        }
+                    } else {
+                        $errors[] = 'Lỗi khi lấy thông tin tài khoản đã mua';
                     }
                 } else {
-                    $errors[] = 'Lỗi khi lấy thông tin tài khoản đã mua';
+                    $errors[] = 'Không có tài khoản nào còn trống để mua';
+                }
+
+                if (empty($errors)) {
+                    if ($this->model->updateBalance($userId, $newBalance)) {
+                        // Tiếp tục xử lý
+                    } else {
+                        $errors[] = 'Lỗi khi cập nhật số dư người dùng';
+                    }
                 }
             } else {
-                $errors[] = 'Không có tài khoản nào còn trống để mua';
+                $errors[] = 'Số dư không đủ để mua hàng';
             }
+        }
 
-            if (empty($errors)) {
-                if ($this->model->updateBalance($userId, $newBalance)) {
-                    // Tiếp tục xử lý
-                } else {
-                    $errors[] = 'Lỗi khi cập nhật số dư người dùng';
-                }
-            }
-        } else {
-            $errors[] = 'Số dư không đủ để mua hàng';
+        // Hiển thị thông báo lỗi bằng Sweet Alert 2
+        if (!empty($errors)) {
+            echo '<script>';
+            echo 'Swal.fire({';
+            echo '    title: "Lỗi",';
+            echo '    html: "' . implode("<br>", $errors) . '",';
+            echo '    icon: "error"';
+            echo '}).then(function() {';
+            echo '    window.location.href =  "' . ROOT_URL . 'danhmuc?type_id=' . $typeId . '";';
+            echo '});';
+            echo '</script>';
         }
     }
-}
 
 
 
