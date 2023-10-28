@@ -26,6 +26,7 @@ $router =[
         'addtocart' => [new SanphamController, 'addtoCart'],
         'giohang' => [new SanphamController, 'giohang'],
         'deletecart' => [new SanphamController,'deletecart'],
+        'capnhatcart' => [new SanphamController,'capnhatcart'],
         'header' => [new SanphamController, 'header'],
         'dangky' => [new UserController, 'dangky'],
         'dangnhap' => [new UserController, 'dangnhap'],
@@ -52,6 +53,8 @@ $router =[
         'dangky' => [new UserController, 'dangky_'],
         'dangnhap' => [new UserController, 'dangnhap_'],
         'muahang' =>  [new UserController, 'muahang'],
+        'capnhatcart' => [new SanphamController,'capnhatcart'],
+
 
 
 
@@ -61,6 +64,7 @@ $router =[
         'admin/themaccount' => [new AdminController, 'addAccount_'],
         'admin/addtaikhoan' => [new AdminController,'addtaikhoan_'],
         'admin/edittaikhoan' => [new AdminController,'edittaikhoan_'],
+        
 
 
 

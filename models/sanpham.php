@@ -172,4 +172,19 @@ class sanpham
         );
         return $this->conn->update($query, $params);
     }
+
+    function getLichsugiaodichByid($user_id)
+    {
+        $query = "SELECT l.purchase_id, a.name AS product_name, l.so_luong_mua, l.thanh_toan, l.purchase_date
+          FROM lichsumuahang l
+          INNER JOIN accounts a ON l.account_id = a.account_id
+          WHERE l.user_id = :user_id
+          ORDER BY l.purchase_date DESC";
+
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
