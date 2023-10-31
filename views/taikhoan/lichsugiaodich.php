@@ -1,207 +1,97 @@
 <style>
-    #cart {
-        width: 100%;
-        margin: auto;
-    }
-
-    /* #cart>div {
-        display: grid;
-        grid-template-columns: 300px 80px 120px auto;
-    }
-
-    #cart>div>* {
-        border: 1px solid darkcyan;
-        padding: 8px;
-    } */
-
-    table {
+    .transaction-history {
         width: 100%;
         border-collapse: collapse;
-        margin-bottom: 20px;
     }
 
-    table,
-    th,
-    td {
-        border: 1px solid black;
-    }
-
-    th,
-    td {
+    .transaction-history th,
+    .transaction-history td {
         padding: 10px;
-        text-align: left;
+        text-align: center;
     }
 
-    th {
+    .transaction-history th {
         background-color: #f2f2f2;
     }
 
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
+    .transaction-history tr:nth-child(even) {
+        background-color: #f2f2f2;
     }
 
-    tr:nth-child(odd) {
-        background-color: #ffffff;
-    }
-
+    .button-xem,
     .button {
-        background-color: red;
-        color: white;
-        border: none;
+        display: inline-block;
+        margin: 5px;
         padding: 5px 10px;
-        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
     }
 
-
+    .button-xem:hover,
     .button:hover {
-        background-color: darkred;
+        background-color: #0056b3;
     }
 
-    .container-cart {
-        display: flex;
-        margin-top: 50px;
-    }
-
-    .right-cart {
-        margin-left: 30px;
-        width: 30%;
-        background-color: #f9f9f9;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    .right-cart h4 {
-        font-size: 18px;
-        margin-bottom: 10px;
-        color: #333;
-    }
-
-    .total-cart {
-        border-top: 1px solid #ccc;
-        padding-top: 10px;
-        margin-top: 10px;
-    }
-
-    .total-cart h2 {
-        display: flex;
-        justify-content: space-between;
-        font-size: 16px;
-    }
-
-    .total-cart label {
-        color: #333;
-    }
-
-    .checkout {
-        display: block;
-        padding: 10px;
+    .button-xem {
         background-color: #e91e63;
-        color: white;
-        text-align: center;
-        text-decoration: none;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        margin-top: 10px;
+        padding: 5px;
     }
 
-
-    .clearfix {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-
+    .button-xem:hover {
+        background-color: #fd6b9d;
     }
 
-    .clearfix a {
-        padding: 10px 20px;
-        outline: 1px solid salmon;
-        list-style: none;
-        text-decoration: none;
-
-    }
-
-    .clearfix button {
-        padding: 10px 20px;
-        cursor: pointer;
-        background-color: #ffffff;
-        border: none;
-        outline: 1px solid salmon;
-
-    }
-
-    .quantity-control {
-        display: flex;
-        align-items: center;
-    }
-
-    .quantity-button {
-        font-size: 1.2rem;
-        padding: 0.2rem 0.5rem;
-        border: 1px solid #ccc;
-        background-color: #fff;
-        cursor: pointer;
-    }
-
-    .quantity-input {
-        width: 40px;
-        text-align: center;
-        border: none;
-        -moz-appearance: textfield;
-    }
-
-    /* Ẩn mũi tên điều hướng của input */
-    .quantity-input::-webkit-inner-spin-button,
-    .quantity-input::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
     @media screen and (max-width: 768px) {
         table {
-            overflow-x: auto; /* Tạo thanh cuộn ngang */
+            overflow-x: auto;
+            /* Tạo thanh cuộn ngang */
         }
     }
-    
 </style>
 <div class="myaccount-content">
 
     <div id="cart">
         <div class="container-cart">
-        <table>
-    <thead>
-        <tr>
-        <th>Mã giao dịch</th>
+            <?php if (!empty($lichsugiaodic)) : ?>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã giao dịch</th>
+                            <th>Sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Thanh toán</th>
+                            <th>Tổng tiền</th>
+                            <th>Thời gian</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($lichsugiaodic as $row) : ?>
+                            <tr>
+                                <td><?= $row['purchase_id'] ?></td>
+                                <td><?= $row['product_name'] ?></td>
+                                <td><?= $row['so_luong_mua'] ?></td>
+                                <td><?= number_format($row['thanh_toan'], 0, '', ',') ?>đ</td>
+                                <td><?= number_format($row['so_luong_mua'] * $row['thanh_toan'], 0, '', ',') ?>đ</td>
+                                <td><?= $row['purchase_date'] ?></td>
+                                <!-- Trong danh sách giao dịch -->
+                                <td>
+                                    <a class="button-xem" href="chitietgiaodich?purchase_id=<?= $row['purchase_id'] ?>">Xem ngay</a>
+                                    <a class="button" href="">Xoá</a>
+                                </td>
 
-            <th>Tên sản phẩm</th>
-            <th>Số lượng</th>
-            <th>Giá</th>
-            <th>Tổng tiền</th>
-            <th>Thời gian</th>
-            <th>Thao tác</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php if (!empty($lichsugiaodic)) {
-            foreach ($lichsugiaodic as $row) {
-                echo '<tr>';
-                echo '<td>' . $row['purchase_id'] . '</td>';
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else : ?>
+                <p>Không có lịch sử giao dịch.</p>
+            <?php endif; ?>
 
-                echo '<td>' . $row['product_name'] . '</td>';
-                echo '<td>' . $row['so_luong_mua'] . '</td>';
-                echo '<td>' . number_format($row['thanh_toan'], 0, '', ',') . 'đ</td>';
-                echo '<td>' . number_format($row['so_luong_mua'] * $row['thanh_toan'], 0, '', ',') . 'đ</td>';
-                echo '<td>' . $row['purchase_date'] . '</td>';
-
-                echo '<td><a class="button" href="">Xoá</a></td>';
-                echo '</tr>';
-            }
-        } else {
-            echo '<tr><td colspan="5">Không có lịch sử giao dịch.</td></tr>';
-        }
-        ?>
-    </tbody>
-</table>
 
 
         </div>

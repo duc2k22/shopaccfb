@@ -92,6 +92,7 @@ class UserController
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['role'] = $user['role'];
+                $_SESSION['account_balance'] = $user['account_balance'];
 
                 echo '<script>
             Swal.fire("Đăng nhập thành công", "", "success").then(function() {
@@ -252,6 +253,11 @@ class UserController
 
 
     
-
+    function dangxuat(){
+        session_unset();
+        session_destroy();
+        //chuyển hướng người dùng
+        header("Location:" . ROOT_URL . 'dangnhap');
+    }
 
 }

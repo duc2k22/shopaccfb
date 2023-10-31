@@ -187,4 +187,27 @@ class sanpham
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getChitietgiaodichByPurchaseId($purchase_id) {
+        $query = "SELECT ad.username, ad.password 
+                  FROM lichsumuahang lh 
+                  INNER JOIN account_details ad ON lh.account_id = ad.account_id 
+                  WHERE lh.purchase_id = :purchase_id";
+    
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':purchase_id', $purchase_id, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function getInfoUser(){
+        $user_id = $_SESSION['user_id'];
+        $query = "SELECT * FROM user where user_id =:user_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
 }

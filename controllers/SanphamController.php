@@ -221,4 +221,24 @@ var_export($_SESSION['cart']);
         $viewnoidung = "views/taikhoan/lichsugiaodich.php";
         include "./views/taikhoan/layout.php";
     }
+
+    function chitietgiaodich(){
+        $purchase_id = $_GET['purchase_id'];
+        // $user_id = $_SESSION['user_id']; // Hoặc lấy giá trị user_id từ nguồn khác
+        $accounType = $this->model->getAllloai();
+        $isDanhMucPage = true;
+        $chitietgiaodich = $this->model->getChitietgiaodichByPurchaseId($purchase_id);
+
+        $titlePage ="Chi tiết giao dịch";
+        $viewnoidung = "chitietgiaodich.php";
+        include "./views/taikhoan/layout.php";
+    }
+
+    function getInfoUser(){
+        $viewnoidung = "menu-account.php";
+        include "./views/taikhoan/layout.php";
+        $infouser = $this->model->getInfoUser($user_id);
+    }
+
+    
 }

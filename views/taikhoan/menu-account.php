@@ -16,9 +16,9 @@
                         <img src="<?= ROOT_URL . 'asset/img/user.png' ?>" alt="">
                     </div>
                     <div class="user-info">
-                        <span class="username">lancave</span>
-                        <span class="user-email">lan@gmail.com</span>
-                        <span class="logout">Số dư: <em>20.000đ</em></span>
+                        <span class="username"><?= $_SESSION['username'] ?></span>
+                        <span class="user-email"><?= $_SESSION['email'] ?></span>
+                        <span class="logout">Số dư: <em></em></span>
                     </div>
                 </div>
                 <div class="myaccount-menu">

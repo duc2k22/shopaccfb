@@ -30,9 +30,12 @@ $router =[
         'header' => [new SanphamController, 'header'],
         'dangky' => [new UserController, 'dangky'],
         'dangnhap' => [new UserController, 'dangnhap'],
+        'dangxuat' => [new UserController, 'dangxuat'],
         'muahang' =>  [new UserController, 'muahang'],
         'taikhoan' =>  [new SanphamController, 'taikhoan'],
+        'taikhoan/dangxuat' =>  [new UserController, 'dangxuat'],
         'taikhoan/lichsugiaodich' =>  [new SanphamController, 'lichsugiaodich'],
+        'taikhoan/chitietgiaodich' =>  [new SanphamController, 'chitietgiaodich'],
 
         //route Admin
         'admin' => [new AdminController, 'index'],

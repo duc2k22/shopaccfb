@@ -49,7 +49,7 @@ $totalPrice = array_sum(array_column($productList, 'totalPrice'));
                         <a href="#">Menu 2</a>
                         <a href="#">Menu 3</a>
                         <a href="#">Menu 4</a>
-                        <a href="#">Menu 5</a>
+                        <a href="dangxuat">Đăng xuất</a>
                     </div>
                 </div>
 
